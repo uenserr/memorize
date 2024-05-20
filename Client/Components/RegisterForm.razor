@@ -1,0 +1,90 @@
+﻿@inject LoginService loginService
+@inject NavigationManager navigationManager
+
+<style>
+    .eye {
+        padding: 0;
+        border: none;
+        background: none;
+        float: right;
+        cursor: pointer;
+    }
+
+    .eye:hover {
+        color:cornflowerblue;
+    }
+
+    div .validation-message {
+        margin-bottom: -20px;
+    }
+</style>
+
+<div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="row">
+        <div class="col">
+            <EditForm class="form-outline mb-4" Model="@User" OnInvalidSubmit="@HandleFailedRequest" OnValidSubmit="@HandleValidRequest">
+                <DataAnnotationsValidator />
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example1">Логин</label>
+                    <InputText class="form-control" @bind-Value="@User.Login"></InputText>
+                    <ValidationMessage For="@(() => User.Login)" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example2">Почта</label>
+                    <InputText class="form-control" @bind-Value="@User.Email"></InputText>
+                    <ValidationMessage For="@(() => User.Email)" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label w-100" for="form2Example2">Пароль <i @onclick="TogglePasswordVisibility" class="bi bi-eye eye"></i></label>
+                    <InputText class="form-control" type="@(!IsPasswordVisible ? "password" : "")" @bind-Value="@User.Password"></InputText>
+                    <ValidationMessage For="@(() => User.Password)" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Регистрация</button>
+
+                <div class="text-center">
+                    Уже есть учетная запись? <a @onclick="ChangeForm" href="/auth">Авторизация</a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsSignUpForm { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsSignUpFormChanged { get; set; }
+
+    public bool IsPasswordVisible { get; private set; }
+
+    protected string Message = string.Empty;
+    protected User User = new User();
+
+    protected void HandleFailedRequest()
+    {
+        Message = "Something went wrong";
+    }
+
+    protected async Task HandleValidRequest()
+    {
+        var result = await loginService.SignUp(User);
+        if (result)
+        {
+            navigationManager.NavigateTo("/", true);
+        }
+        else
+        {
+            Message = "Incorrect data";
+        }
+    }
+
+    private async Task ChangeForm()
+    {
+        IsSignUpForm = !IsSignUpForm;
+        await IsSignUpFormChanged.InvokeAsync(IsSignUpForm);
+    }
+
+    private void TogglePasswordVisibility() => IsPasswordVisible = !IsPasswordVisible;
+}

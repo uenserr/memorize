@@ -1,0 +1,205 @@
+@page "/{username}/{deckId}/selection"
+@inject DeckService deckService
+
+<PageTitle></PageTitle>
+
+<style>
+    .question {
+        height: 25vh;
+        border-width: 2px;
+        font-size: 28px;
+    }
+
+    .answer-pick {
+        border-width: 2px;
+        height: 15vh;
+        border-bottom-color: gray;
+        border-bottom-width: 5px;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .answer-pick:hover {
+        border-bottom-color: rgb(99, 99, 241);
+    }
+
+    .move-button {
+        border: none;
+        cursor: pointer;
+        appearance: none;
+        background-color: inherit;
+        position: absolute;
+        right: 10px;
+        visibility: hidden;
+    }
+</style>
+
+<div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 h-75">
+        <div class="col-12" align="center">
+            <div class="card question">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_cards[CurrentPosition].FrontSide
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-6" align="center">
+            <div @onclick="@(e => PickAnswer(0))" class="card answer-pick" style="@_answerButtonStyles[0]">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_answers[0].BackSide
+                    </p>
+                    <button class="move-button" style="@_nextButtonStyles[0]">
+                        <img src="/Icons/card-forward-50.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" align="center">
+            <div @onclick="@(e => PickAnswer(1))" class="card answer-pick" style="@_answerButtonStyles[1]">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_answers[1].BackSide
+                    </p>
+                    <button class="move-button" style="@_nextButtonStyles[1]">
+                        <img src="/Icons/card-forward-50.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" align="center">
+            <div @onclick="@(e => PickAnswer(2))" class="card answer-pick" style="@_answerButtonStyles[2]">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_answers[2].BackSide
+                    </p>
+                    <button class="move-button" style="@_nextButtonStyles[2]">
+                        <img src="/Icons/card-forward-50.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" align="center">
+            <div @onclick="@(e => PickAnswer(3))" class="card answer-pick" style="@_answerButtonStyles[3]">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_answers[3].BackSide
+                    </p>
+                    <button class="move-button" style="@_nextButtonStyles[3]">
+                        <img src="/Icons/card-forward-50.png" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string? DeckID { get; set; }
+
+    [Parameter]
+    public string? Username { get; set; }
+
+    [Inject]
+    private NavigationManager? _navigationManager { get; set; }
+
+    private List<Card> _cards = new List<Card> { new Card() };
+    private List<Card>? _answers = new List<Card> { new Card(), new Card(), new Card(), new Card() };
+
+    private int _currentPosition;
+    public int CurrentPosition
+    {
+        get { return _currentPosition; }
+        set
+        {
+            if (value >= 0 && value < _cards.Count)
+            {
+                _currentPosition = value;
+            }
+        }
+    }
+    private bool _choisePicked;
+
+    private string[] _nextButtonStyles = new string[4];
+    private string[] _answerButtonStyles = new string[4];
+
+    public void SetAnswers()
+    {
+        
+        Random random = new Random();
+        Card correctAnswer = _cards[CurrentPosition];
+        _answers.Clear();
+        _answers.Add(correctAnswer);
+        var availableIndexes = Enumerable.Range(0, _cards.Count - 1).ToList();
+        availableIndexes.Remove(CurrentPosition);
+        for (int i = 0; i < 3; i++)
+        {
+            int rndNumber = random.Next(availableIndexes.Count);
+            Console.WriteLine(rndNumber);
+            Console.WriteLine(availableIndexes[rndNumber]);
+            _answers.Add(_cards[availableIndexes[rndNumber]]);
+            availableIndexes.RemoveAt(rndNumber);
+        }
+        var shuffled = _answers.OrderBy(_ => random.Next()).ToList();
+        _answers = shuffled;
+    }
+
+    private void PickAnswer(int id)
+    {
+        if (!_choisePicked)
+        {
+            int answerIndex = _answers.IndexOf(_cards[CurrentPosition]);
+            _nextButtonStyles[id] = "visibility:visible;";
+            if (_cards[CurrentPosition].ID == _answers[id].ID)
+            {
+                _answerButtonStyles[id] = "border-bottom-color: rgb(81, 214, 88);";
+            }
+            else
+            {
+                _answerButtonStyles[id] = "border-bottom-color: rgb(214, 64, 64);";
+                _answerButtonStyles[answerIndex] = "border-bottom-color: rgb(81, 214, 88);";
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == id) continue;
+                _answerButtonStyles[i] += "pointer-events: none;";
+            }
+            _choisePicked = true;
+        }
+        else
+        {
+            if (CurrentPosition == _cards.Count - 1)
+            {
+                _navigationManager.NavigateTo($"{Username}/{DeckID}");
+            }
+            CurrentPosition++;
+            _choisePicked = false;
+            Array.Fill(_nextButtonStyles, "");
+            Array.Fill(_answerButtonStyles, "");
+            SetAnswers();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDeckCards();
+        SetAnswers();
+    }
+
+    private async Task GetDeckCards()
+    {
+        var deckID = Convert.ToInt32(DeckID);
+        var apiDeck = await deckService.GetCards(deckID);
+        if (apiDeck != null)
+        {
+            _cards = apiDeck.ToList();
+        }
+    }
+}

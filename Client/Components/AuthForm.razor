@@ -1,0 +1,101 @@
+﻿@inject LoginService loginService
+@inject NavigationManager navigationManager
+
+<style>
+    .eye {
+        padding: 0;
+        border: none;
+        background: none;
+    }
+</style>
+
+<div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="row">
+        <div class="col">
+            <EditForm class="form-outline mb-4" Model="@User" OnInvalidSubmit="@HandleFailedRequest" OnValidSubmit="@HandleValidRequest">
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example1">Почта / Логин</label>
+                    <InputText class="form-control" @bind-Value="@User.Email"></InputText>
+                </div>
+
+                <div class="form-outline mb-4">
+
+                    <label class="form-label" for="form2Example2">Пароль</label>
+                    <InputText class="form-control" @bind-Value="@User.Password"></InputText>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                            <label class="form-check-label" for="form2Example31"> Запомнить меня </label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <a href="#!">Забыли пароль?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Войти</button>
+
+                <div class="text-center">
+                    <p>Нет учетной записи? <a @onclick="ChangeForm" href="/auth">Регистрация</a></p>
+                    <p>Или войти с помощью:</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-google"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsSignUpForm { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsSignUpFormChanged { get; set; }
+
+    protected string Message = string.Empty;
+    protected User User = new User();
+
+    private async Task ChangeForm()
+    {
+
+        IsSignUpForm = !IsSignUpForm;
+        await IsSignUpFormChanged.InvokeAsync(IsSignUpForm);
+    }
+
+    protected void HandleFailedRequest()
+    {
+        Message = "Something went wrong";
+    }
+
+    protected async Task HandleValidRequest()
+    {
+        User.Login = "post";
+        var result = await loginService.Login(User);
+        if (result)
+        {
+            navigationManager.NavigateTo("/", true);
+        }
+        else
+        {
+            Message = "Incorrect data";
+        }
+    }
+}

@@ -1,0 +1,320 @@
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Client.staticwebassets.runtime.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\appsettings.Development.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\appsettings.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.Scripting.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Server.staticwebassets.runtime.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Server.exe
+C:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Memorize.Server.deps.json
+C:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Memorize.Server.runtimeconfig.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Server.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Server.pdb
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Azure.Core.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Azure.Identity.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Humanizer.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Web.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Identity.Client.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.JSInterop.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.JSInterop.WebAssembly.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.CodeDom.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Memory.Data.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Runtime.Caching.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Client.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Shared.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Client.pdb
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Memorize.Shared.pdb
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.csproj.AssemblyReference.cache
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfoInputs.cache
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfo.cs
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.csproj.CoreCompileInputs.cache
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cache
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cs
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets.build.json
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets.development.json
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets\msbuild.Memorize.Server.Microsoft.AspNetCore.StaticWebAssets.props
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets\msbuild.build.Memorize.Server.props
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Memorize.Server.props
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Memorize.Server.props
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\staticwebassets.pack.json
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\scopedcss\bundle\Memorize.Server.styles.css
+C:\vscode\C#\Memorize\Server\obj\Debug\net7.0\Memorize.Server.csproj.CopyComplete
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.dll
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\refint\Memorize.Server.dll
+C:\vscode\C#\Memorize\server\obj\Debug\net7.0\Memorize.Server.pdb
+C:\vscode\C#\Memorize\Server\obj\Debug\net7.0\Memorize.Server.genruntimeconfig.cache
+C:\vscode\C#\Memorize\Server\obj\Debug\net7.0\ref\Memorize.Server.dll
+C:\vscode\C#\Memorize\Server\obj\Debug\net7.0\Memorize.Server.sourcelink.json
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Castle.Core.dll
+C:\vscode\C#\Memorize\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+c:\vscode\C#\Memorize\Server\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\appsettings.Development.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\appsettings.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Client.staticwebassets.runtime.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.staticwebassets.runtime.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.exe
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.deps.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.runtimeconfig.json
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Server.pdb
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Azure.Core.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Azure.Identity.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Humanizer.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Identity.Client.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.JSInterop.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.JSInterop.WebAssembly.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Memory.Data.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Runtime.Caching.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Client.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Shared.dll
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Client.pdb
+C:\Users\Гошан\Desktop\memorize-master\server\bin\Debug\net7.0\Memorize.Shared.pdb
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.AssemblyReference.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfoInputs.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfo.cs
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.CoreCompileInputs.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cs
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets.build.json
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets.development.json
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.Memorize.Server.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.build.Memorize.Server.props
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Memorize.Server.props
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Memorize.Server.props
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\scopedcss\bundle\Memorize.Server.styles.css
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.CopyComplete
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\refint\Memorize.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.pdb
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.genruntimeconfig.cache
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\ref\Memorize.Server.dll
+C:\Users\Гошан\Desktop\memorize-master\server\obj\Debug\net7.0\Memorize.Server.sourcelink.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\appsettings.Development.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\appsettings.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Client.staticwebassets.runtime.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.staticwebassets.runtime.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.exe
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.deps.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.runtimeconfig.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Server.pdb
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Azure.Core.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Azure.Identity.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Humanizer.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Identity.Client.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.JSInterop.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.JSInterop.WebAssembly.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Memory.Data.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Runtime.Caching.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Client.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Client.pdb
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\bin\Debug\net7.0\Memorize.Shared.pdb
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.AssemblyReference.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfoInputs.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.AssemblyInfo.cs
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.CoreCompileInputs.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.RazorAssemblyInfo.cs
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets.build.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets.development.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.Memorize.Server.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.build.Memorize.Server.props
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Memorize.Server.props
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Memorize.Server.props
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\scopedcss\bundle\Memorize.Server.styles.css
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.csproj.CopyComplete
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\refint\Memorize.Server.dll
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.pdb
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\Memorize.Server.genruntimeconfig.cache
+C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\server\obj\Debug\net7.0\ref\Memorize.Server.dll

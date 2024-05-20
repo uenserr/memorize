@@ -1,0 +1,178 @@
+@page "/{username}/{deckId}/writing"
+@inject DeckService deckService
+
+
+<style>
+    .question {
+        height: 40vh;
+        border-width: 2px;
+        font-size: 26px;
+        @BorderColorStyle
+    }
+
+    .answer-pick {
+        border-width: 2px;
+        height: 20vh;
+        @BorderColorStyle
+    }
+
+    .answer-input {
+        font-size: 30px;
+    }
+</style>
+
+<div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 h-75">
+        <div class="col-12" align="center">
+            <div class="card question">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <p class="card-text">
+                        @_cards[CurrentPosition].BackSide <br>
+                        <span style="color: green;">@AnswerLabel</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-12" align="center">
+            <div class="card answer-pick" style="min-height: 158px;">
+                <div class="card-body d-flex align-items-center justify-content-center">
+
+                    <div class="container h-100 d-flex align-items-center justify-content-center">
+                        <div class="row w-100 h-75">
+                            <div class="col-12" align="center">
+                                <input @onkeydown="KeyHandler" style="text-align: center;"
+                                    class="form-control answer-input" @bind-value="@UserInput"
+                                    @bind-value:event="oninput" />
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-6 mt-3" align="center">
+                                <button disabled="@IsHintButtonDisabled" @onclick="GetHint" type="button"
+                                    class="btn btn-warning w-100">Подсказка</button>
+
+                            </div>
+                            <div class="col-6 mt-3" align="center">
+
+                                <button @onclick="ConfirmAnswerClick" type="button"
+                                    class="btn btn-success w-100">@ConfirmButtonText</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string? DeckID { get; set; }
+
+    [Parameter]
+    public string? Username { get; set; }
+
+    [Inject]
+    private NavigationManager? _navigationManager { get; set; }
+
+    private List<Card> _cards = new List<Card> { new Card() };
+    private List<Card> _answers = new List<Card>();
+
+    public string HintText { get; private set; } = String.Empty;
+    public string UserInput { get; private set; } = String.Empty;
+    public string AnswerLabel { get; private set; } = String.Empty;
+    public string? ConfirmButtonText { get; private set; } = "Подтвердить";
+    public string BorderColorStyle { get; private set; } = String.Empty;
+    public bool IsHintButtonDisabled { get; private set; }
+
+    private int _currentPosition;
+    public int CurrentPosition
+    {
+        get { return _currentPosition; }
+        set
+        {
+            if (value >= 0 && value < _cards.Count)
+            {
+                _currentPosition = value;
+            }
+        }
+    }
+    private bool _choisePicked;
+
+    private string[] _nextButtonStyles = new string[4];
+    private string[] _answerButtonStyles = new string[4];
+
+    public void SetAnswers()
+    {
+
+    }
+
+    private void KeyHandler(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter") ConfirmAnswerClick();
+
+    }
+
+    public void ConfirmAnswerClick()
+    {
+        if (!_choisePicked)
+        {
+            if (UserInput == _cards[CurrentPosition].FrontSide)
+            {
+                BorderColorStyle = "border-color: green;";
+            }
+            else
+            {
+                BorderColorStyle = "border-color: rgb(214, 64, 64);";
+            }
+            _choisePicked = IsHintButtonDisabled = true;
+            AnswerLabel = _cards[CurrentPosition].FrontSide;
+            ConfirmButtonText = "Далее";
+        }
+        else
+        {
+            if (CurrentPosition == _cards.Count - 1)
+            {
+                _navigationManager.NavigateTo($"{Username}/{DeckID}");
+            }
+            CurrentPosition++;
+            _choisePicked = IsHintButtonDisabled = false;
+            AnswerLabel = BorderColorStyle = UserInput = String.Empty;
+            ConfirmButtonText = "Подтвердить";
+        }
+    }
+
+    private void GetHint()
+    {
+        if (HintText == _cards[CurrentPosition].FrontSide)
+        {
+            ConfirmAnswerClick();
+            return;
+        }
+        UserInput = String.Empty;
+        HintText += _cards[CurrentPosition].FrontSide[HintText.Length];
+        UserInput = HintText;
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDeckCards();
+
+    }
+
+    private async Task GetDeckCards()
+    {
+        var deckID = Convert.ToInt32(DeckID);
+        var apiDeck = await deckService.GetCards(deckID);
+        if (apiDeck != null)
+        {
+            _cards = apiDeck.ToList();
+        }
+    }
+}

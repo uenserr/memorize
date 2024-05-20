@@ -1,0 +1,11 @@
+@page "/logout"
+@inject LoginService loginService
+
+<button @onclick="Click">Logout</button>
+
+@code {
+    public async Task Click()
+    {
+        await loginService.Logout();
+    }
+}

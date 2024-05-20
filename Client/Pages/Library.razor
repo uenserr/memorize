@@ -1,0 +1,124 @@
+@page "/{username}/Library"
+@inject LibraryService libraryService;
+@inject LoginService loginService;
+
+@using Memorize.Client.Pages
+
+<PageTitle>Library2</PageTitle>
+
+
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0,0,0,0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1>Ваши библиотека колод</h1>
+
+    
+
+    <div class="row">
+        @foreach (var deck in Decks)
+        {
+            <div class="col-md-4 mb-4" @onclick="@(e => RedirectToDeck(deck.ID))" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <button @onclick="@(e => DeleteDeck(deck))" type="button" class="btn btn-labeled btn-danger float-end">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        @if (CalculateCardsLearnCount(deck) > 0)
+                        {
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                @CalculateCardsLearnCount(deck)
+                            </span>
+                        }
+                        <h5 class="card-title">@deck.Name</h5>
+                        <p class="card-text">@deck.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row mt-4 justify-content-center">
+            <button type="button" @onclick="AddDeck" class="btn btn-primary w-50">Добавить</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+
+    public string? Username { get; set; }
+
+    [Inject]
+
+    private NavigationManager? navigationManager { get; set; }
+
+    public List<Deck> Decks { get; set; } = new List<Deck>();
+
+    public User? CurrentUser { get; set; } = new User();
+
+    public int CardsLearnCount { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await loginService.GetCurrentUser();
+        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+    }
+
+
+
+    private void RedirectToDeck(int id)
+    {
+        navigationManager.NavigateTo($"{CurrentUser.Login}/{id}");
+    }
+
+
+
+    private int CalculateCardsLearnCount(Deck deck)
+    {
+        int count = 0;
+        Console.WriteLine(DateTime.Today);
+        foreach (var card in deck.Cards)
+        {
+            if (card.NextAppear <= DateTime.Today)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
+
+    protected async Task AddDeck()
+    {
+        var deck = new Deck { UserID = CurrentUser.ID };
+        await libraryService.AddDeck(deck);
+        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+    }
+
+
+
+    protected async Task DeleteDeck(Deck deck)
+    {
+        var result = await libraryService.DeleteDeck(deck.ID);
+        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+    }
+}

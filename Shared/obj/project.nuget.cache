@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "z1gMmxjTD9X+WInUIsYoNvWx9xrgJYvbZ3TlO/aqiNx5Q4NTx4iY3STutxIAPPyhMan3hAbYYAtYnclDITU4fw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\uense\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\uense\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\uense\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.15\\microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}

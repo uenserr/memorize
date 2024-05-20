@@ -1,0 +1,313 @@
+@page "/{username}/{deckId}"
+
+@inject DeckService deckService
+
+<PageTitle>@deck.Name</PageTitle>
+
+<style>
+    .alert-fixed {
+        position: fixed;
+        bottom: 1px;
+        left: 50%;
+        right: 50%;
+        width: 80%;
+        z-index: 9999;
+        opacity: 0.9;
+        transform: translate(-50%, -50%);
+        visibility: visible;
+    }
+
+        .btn-label {
+            position: relative;
+            left: -12px;
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 3px 0 0 3px;
+        }
+
+        .btn-labeled {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .btn {
+            margin-bottom: 10px;
+        }
+
+        .card {
+            border: 2px solid lightgray;
+        }
+
+        .mode-pick {
+            border-bottom-color: gray;
+            border-bottom-width: 5px;
+        }
+
+        .mode-pick:hover {
+            border-bottom-color: rgb(99, 99, 241);
+        }
+
+        .visibile {
+            visibility: hidden;
+        }
+</style>
+
+<div class="alert alert-warning alert-dismissible fade show alert-fixed" role="alert"
+    style="visibility: @_selectionAlertVisibility">
+    <strong>Недостаточно карт для режима 'подбор'!</strong> В колоде необходимо иметь минимум 4 карты для использования
+    этого режима.
+    <button type="button" @onclick="CloseSelectionAlertClick" class="btn-close" aria-label="Close" />
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show alert-fixed" role="alert"
+    style="visibility: @_intervalsAlertVisibility">
+    <strong>На текущий момент карты для повторения отсутствуют!</strong> Повторите попытку позже.
+    <button type="button" @onclick="CloseIntervalsAlertClick" class="btn-close" aria-label="Close" />
+</div>
+
+<div class="container mt-5">
+    <h1 class="mb-4">@deck.Name</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body p-2">
+                    <div class="container h-100 d-flex align-items-center justify-content-center">
+
+                    <div class="row">
+                        <div class="col-6 g-2">
+                                <div class="card mode-pick" @onclick="@(e => RedirectToDeck("flashcards"))" style="cursor: pointer; height: 100%;">
+                                    <div class="card-body">
+                                        <i class="bi bi-card-heading h3 float-end"></i>
+                                        <h4 class="card-title">Карточки</h4>
+                                        <p class="card-text">Просмотр списка карточек</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 g-2">
+                                <div class="card mode-pick" @onclick="@(e => RedirectToDeck("selection"))" style="cursor: pointer; height: 100%;">
+                                    <div class="card-body">
+                                        <i class="bi bi-dpad h3 float-end"></i>
+                                        <h4 class="card-title">Подбор</h4>
+                                        <p class="card-text">Повторение путем подбора правильного ответа</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 g-2">
+                                <div class="card mode-pick" @onclick="@(e => RedirectToDeck("writing"))" style="cursor: pointer; height: 100%;">
+                                    <div class="card-body">
+                                        <i class="bi bi-pencil h3 float-end"></i>
+                                        <h4 class="card-title">Правописание</h4>
+                                        <p class="card-text">
+                                            Закрепление правописания
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 g-2">
+                                <div class="card mode-pick" @onclick="@(e => RedirectToDeck("intervals"))" style="cursor: pointer; height: 100%;">
+                                    <div class="card-body">
+                                        <i class="bi bi-clock-history h3 float-end"></i>
+                                        @if (CardsLearnCount > 0)
+                                        {
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                @CardsLearnCount
+                                            </span>
+                                        }
+                                        <h4 class="card-title">Интервальное повторение</h4>
+                                        <p class="card-text">
+                                            Метод интервального повторения
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card" style="height: 100%">
+                <div class="card-body" >
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example1">Название колоды</label>
+                        <InputText class="form-control" @bind-Value="@deck.Name" @onblur="@(e => UpdateDeck())" />
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example1">Описание колоды</label>
+                        <InputText class="form-control" @bind-Value="@deck.Description"
+                            @onblur="@(e => UpdateDeck())" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @foreach (var deckCard in cards)
+
+    {
+        <div class="card-deck mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <button @onclick="@(e => DeleteCard(deckCard))" type="button" class="btn btn-labeled btn-danger float-end">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example1">Передняя сторона</label>
+                        <InputText class="form-control" @bind-Value="@deckCard.FrontSide"
+                            @onblur="@(e => UpdateCard(deckCard))" />
+                    </div>
+                    <div class="form-outline mb-4">
+
+                        <label class="form-label" for="form2Example1">Задняя сторона</label>
+                        <InputText class="form-control" @bind-Value="@deckCard.BackSide"
+                            @onblur="@(e => UpdateCard(deckCard))" />
+                        
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row mt-4 justify-content-center">
+        <button type="button" @onclick="AddCard" class="btn btn-primary w-50">Добавить</button>
+    </div>
+
+</div>
+
+@code {
+    protected Deck? deck = new Deck();
+
+    protected List<Card> cards = new List<Card>();
+
+    [Parameter]
+
+    public string? DeckID { get; set; }
+
+    [Parameter]
+
+    public string? Username { get; set; }
+
+    [Inject]
+
+    private NavigationManager? _navigationManager { get; set; }
+
+    public int CardsLearnCount { get; set; }
+
+    private string _selectionAlertVisibility = "hidden";
+    private string _intervalsAlertVisibility = "hidden";
+
+    private void RedirectToDeck(string modeLink)
+    {
+        if (cards.Count == 0)
+        {
+            return;
+        }
+        if (modeLink == "selection" && cards.Count < 4)
+        {
+            _selectionAlertVisibility = "visible";
+            _intervalsAlertVisibility = "hidden";
+            return;
+        }
+        if (modeLink == "intervals" && CardsLearnCount == 0)
+        {
+            _intervalsAlertVisibility = "visible";
+            _selectionAlertVisibility = "hidden";
+            return;
+        }
+        _navigationManager.NavigateTo($"{Username}/{deck.ID}/{modeLink}");
+    }
+
+
+
+    private void CloseSelectionAlertClick()
+    {
+        _selectionAlertVisibility = "hidden";
+    }
+
+    private void CloseIntervalsAlertClick()
+    {
+        _intervalsAlertVisibility = "hidden";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(DeckID))
+        {
+
+        }
+        else
+        {
+            await GetDeckCards();
+            CalculateCardsLearnCount();
+        }
+    }
+
+    private void CalculateCardsLearnCount()
+    {
+        CardsLearnCount = 0;
+        foreach (var card in cards)
+        {
+            if (card.NextAppear <= DateTime.Today)
+            {
+                CardsLearnCount++;
+            }
+        }
+    }
+
+
+
+    private async Task GetDeckCards()
+    {
+        var deckID = Convert.ToInt32(DeckID);
+        deck = await deckService.GetDeck(deckID);
+        var apiDeck = await deckService.GetCards(deckID);
+        if (apiDeck != null)
+        {
+            cards = apiDeck.ToList();
+        }
+    }
+
+
+
+    protected async Task UpdateDeck()
+    {
+        var result = await deckService.UpdateDeck(deck);
+    }
+
+
+
+    protected async Task UpdateCard(Card card)
+    {
+        var result = await deckService.UpdateCard(card);
+    }
+
+
+
+    protected async Task AddCard()
+    {
+        var card = new Card { DeckID = deck.ID };
+        var result = await deckService.AddCard(card);
+        await GetDeckCards();
+        CalculateCardsLearnCount();
+    }
+
+
+
+    protected async Task DeleteCard(Card card)
+    {
+        var result = await deckService.DeleteCard(card.ID);
+        await GetDeckCards();
+        CalculateCardsLearnCount();
+    }
+}

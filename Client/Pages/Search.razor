@@ -1,0 +1,79 @@
+﻿@page "/search"
+@inject LoginService loginService;
+@inject SearchService searchService;
+@inject UserService userService;
+@inject NavigationManager navigationManager;
+
+<PageTitle>Поиск</PageTitle>
+
+
+<div class="container mt-4">
+    <h1>Результаты поиска</h1>
+    <h2>Колоды</h2>
+
+    <div class="row">
+        @foreach (var deck in Decks)
+        {
+            <div class="col" @onclick="@(e => RedirectToDeck(deck.ID))" style="cursor: pointer;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@deck.Name</h5>
+                        <p class="card-text">@deck.Description</p>
+                        <p class="card-text">@deck.User.Login</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+        <h1>Пользователи</h1>
+
+        <div class="row">
+            @foreach (var user in Users)
+            {
+                <div class="col" @onclick="@(e => RedirectToUser(user.Login))" style="cursor: pointer;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@user.Login</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        <div class="row mt-4 justify-content-center">
+            <button type="button" class="btn btn-primary w-50">Показать еще</button>
+        </div>
+    </div>
+</div>
+
+    @code {
+
+        [Parameter]
+        [SupplyParameterFromQuery(Name = "query")]
+        public string Query { get; set; } = String.Empty;
+
+        public List<Deck> Decks { get; set; } = new List<Deck>();
+        public List<User> Users { get; set; } = new List<User>();
+
+        public User? CurrentUser { get; set; } = new User();
+
+        protected override async Task OnInitializedAsync()
+        {
+            CurrentUser = await loginService.GetCurrentUser();
+            Decks = await searchService.GetDecksByName(Query);
+            Users = await searchService.GetUsersByName(Query);
+        }
+
+        private void RedirectToDeck(int id)
+        {
+            var deckOwner = Decks.FirstOrDefault(x => x.ID == id).User.Login;
+            navigationManager.NavigateTo($"{deckOwner}/{id}");
+    }
+
+    private void RedirectToUser(string login)
+    {
+        navigationManager.NavigateTo($"{login}/profile");
+    }
+
+
+}

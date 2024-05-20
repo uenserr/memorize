@@ -1,0 +1,118 @@
+﻿@inject LoginService loginService
+@inject LibraryService libraryService;
+
+<style>
+    .dropdown-menu {
+        margin-right: 60px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm px-4 navbar-light bg-light fixed-top" style="border-bottom: 1px solid lightgray">
+    <a class="navbar-brand" href="/">MEMORIZE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0 " style="width: 100%;">
+            <input @onkeydown="QueryConfirm" @bind-value="@Query"
+                   @bind-value:event="oninput" class="form-control mr-sm-2" style="width:70%; margin-left: 18%;"  placeholder="Поиск" />
+        </form>
+        <ul class="navbar-nav mr-auto">
+
+            @if (CurrentUser != null)
+            {
+                <li class="nav-item active" style="width: 120px; background-color: red;">
+                    <a class="nav-link" href="@($"{CurrentUser.Login}/Library")">
+                        Библиотека
+                        <span class="badge badge-pill bg-secondary align-middle d-inline">@CardsLearnCount</span>
+                    </a>
+                </li>
+            }    
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Линк</a>
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Меню
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary btn-circle dropdown" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-person h4"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/profile">Профиль</a>
+                <a class="dropdown-item" href="/settings">Настройки</a>
+                <div class="dropdown-divider"></div>
+                <a @onclick="LogoutClick" class="dropdown-item" href="/">Выход</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+@code {
+
+
+    [Inject]
+    public NavigationManager? NavigationManager { get; private set; }
+
+    private User? CurrentUser;
+
+    public List<Deck> Decks { get; set; } = new List<Deck>();
+
+    public string Query { get; private set; } = String.Empty;
+
+    public int CardsLearnCount { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await loginService.GetCurrentUser();
+        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+        CalculateCardsLearnCount();
+    }
+
+    private int CalculateCardsLearnCount()
+    {
+        int count = 0;
+        foreach (var deck in Decks)
+        {
+            foreach (var card in deck.Cards)
+            {
+                if (card.NextAppear <= DateTime.Today)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private async Task QueryConfirm(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter")
+        {
+            NavigationManager.NavigateTo($"search/?query={Query}", false);
+        }
+    }
+
+    public void LogoutClick()
+    {
+        loginService.Logout();
+        NavigationManager.NavigateTo("/", true);
+    }
+}

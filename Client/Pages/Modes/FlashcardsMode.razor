@@ -1,0 +1,106 @@
+﻿@page "/{username}/{deckId}/flashcards"
+@inject DeckService deckService
+
+<PageTitle></PageTitle>
+
+<style>
+    .flashcard {
+        transform-style: preserve-3d;
+        transition: transform 0.4s;
+    }
+
+    .flashcard-backside-click {
+        transform: rotateY(180deg);
+    }
+
+    .backside, .frontside {
+        font-size: 28px;
+    }
+
+    .backside {
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+    }
+
+    .frontside {
+        backface-visibility: hidden;
+    }
+
+    .move-button {
+        border: none;
+        cursor: pointer;
+        appearance: none;
+        background-color: inherit;
+    }
+
+</style>
+
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-2">
+            <button @onclick="@(e => CurrentPosition--)" class="h-100 w-100 move-button">
+                <img src="/Icons/card-back-50.png" />
+            </button>
+        </div>
+        <div class="col-8" align="center">
+            <div @onclick="FlipCard"
+                 style="height: 80vh; border: 1px solid lightgray; border-radius: 10px; border-width: 2px;"
+                 class="flashcard @(isBackSide ? "flashcard-backside-click" : "") d-flex align-items-center justify-content-center">
+                <p class="card-text frontside " style="position:absolute">@_cards[CurrentPosition].FrontSide</p>
+                <p class="card-text backside" style="position:absolute">@_cards[CurrentPosition].BackSide</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <button @onclick="@(e => CurrentPosition++)" class="h-100 w-100 move-button">
+                <img src="/Icons/card-forward-50.png" />
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public string? DeckID { get; set; }
+
+    [Parameter]
+    public string? Username { get; set; }
+    public bool isBackSide = false;
+
+    public List<Card> _cards = new List<Card> { new Card() };
+
+    private int _currentPosition;
+    public int CurrentPosition
+    {
+        get { return _currentPosition; }
+        set
+        {
+            if (value >= 0 && value < _cards.Count)
+            {
+                _currentPosition = value;
+                isBackSide = false;
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDeckCards();
+    }
+
+    private void FlipCard()
+    {
+        isBackSide = !isBackSide;
+    }
+    private async Task GetDeckCards()
+    {
+        var deckID = Convert.ToInt32(DeckID);
+        var apiDeck = await deckService.GetCards(deckID);
+        if (apiDeck != null)
+        {
+            _cards = apiDeck.ToList();
+        }
+    }
+}

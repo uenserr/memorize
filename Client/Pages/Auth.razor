@@ -1,0 +1,28 @@
+@page "/Auth"
+@inject LoginService loginService
+@using Memorize.Client.Pages
+
+<PageTitle>Аутентификация</PageTitle>
+
+@if (!IsSignUpForm)
+{
+    <AuthForm @bind-IsSignUpForm="IsSignUpForm" />
+}
+else
+{
+    <RegisterForm @bind-IsSignUpForm="IsSignUpForm" />
+}
+
+
+
+@code
+{
+    public bool IsSignUpForm = false;
+
+   
+
+    private void ChangeForm()
+    {
+        IsSignUpForm = !IsSignUpForm;
+    }
+}

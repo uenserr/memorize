@@ -1,0 +1,184 @@
+@page "/{username}/{deckId}/intervals"
+@inject DeckService deckService
+
+<PageTitle></PageTitle>
+
+<style>
+    .flashcard {
+        transform-style: preserve-3d;
+        transition: transform 0.4s;
+    }
+
+    .flashcard-backside-click {
+        transform: rotateY(180deg);
+    }
+
+    .backside,
+    .frontside {
+        font-size: 28px;
+    }
+
+    .backside {
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+    }
+
+    .frontside {
+        backface-visibility: hidden;
+    }
+</style>
+
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-2">
+        </div>
+        <div class="col-8" align="center">
+            <div @onclick="FlipCard"
+                style="height: 80vh; border: 1px solid gray; border-radius: 10px; border-width: 2px;"
+                class="flashcard @(isBackSide ? "flashcard-backside-click" : "") d-flex align-items-center justify-content-center">
+                <p class="card-text frontside " style="position:absolute">@_cards[CurrentPosition].FrontSide</p>
+                <p class="card-text backside" style="position:absolute">@_cards[CurrentPosition].BackSide</p>
+                <div class="container backside p-0 h-100 d-flex align-items-center justify-content-center">
+                    <div class="row w-100 h-100  align-items-end">
+                        <div class="col-3 p-0">
+                            <button @onclick="@(e => ConfirmClick(Memorization.DontRemember))" type="button"
+                                class="btn btn-danger w-100" style="border-radius: 0px 0px 0px 8px;">@NextAppearDays[0]
+                                дней</button>
+                        </div>
+                        <div class="col-3 p-0">
+                            <button @onclick="@(e => ConfirmClick(Memorization.Hard))" type="button"
+                                class="btn btn-warning w-100" style="border-radius: 0px;">@NextAppearDays[1]
+                                дней</button>
+                        </div>
+                        <div class="col-3 p-0">
+                            <button @onclick="@(e => ConfirmClick(Memorization.Good))" type="button"
+                                class="btn btn-success w-100" style="border-radius: 0px;">@NextAppearDays[2]
+                                дней</button>
+                        </div>
+                        <div class="col-3 p-0">
+                            <button @onclick="@(e => ConfirmClick(Memorization.Easy))" type="button"
+                                class="btn btn-primary w-100" style="border-radius: 0px 0px 8px 0px;">@NextAppearDays[3]
+                                дней</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public string? DeckID { get; set; }
+
+    [Parameter]
+    public string? Username { get; set; }
+
+    [Inject]
+    private NavigationManager? _navigationManager { get; set; }
+
+    enum Memorization
+    {
+        DontRemember,
+        Hard,
+        Good,
+        Easy
+    }
+
+    public int[] NextAppearDays { get; set; } = new int[4];
+    public bool isBackSide = false;
+
+    public List<Card> _cards = new List<Card> { new Card() };
+    public Deck? Deck { get; private set; }
+
+    private int _currentPosition;
+    public int CurrentPosition
+    {
+        get { return _currentPosition; }
+        set
+        {
+            if (value >= 0 && value < _cards.Count)
+            {
+                _currentPosition = value;
+                isBackSide = false;
+                EvaluateDaysCount();
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetDeckCardsAvailableToday();
+        Deck = await deckService.GetDeck(Convert.ToInt32(DeckID));
+        EvaluateDaysCount();
+    }
+
+    private void FlipCard()
+    {
+        isBackSide = !isBackSide;
+    }
+
+    private async Task ConfirmClick(Memorization memorization)
+    {
+        Card card = _cards[CurrentPosition];
+        switch (memorization)
+        {
+            case Memorization.DontRemember:
+                SetCardIntervals(card, NextAppearDays[0]);
+                break;
+            case Memorization.Hard:
+                SetCardIntervals(card, NextAppearDays[1]);
+                break;
+            case Memorization.Good:
+                SetCardIntervals(card, NextAppearDays[2]);
+                break;
+            case Memorization.Easy:
+                SetCardIntervals(card, NextAppearDays[3]);
+                break;
+        }
+        if (CurrentPosition == _cards.Count - 1)
+        {
+            _navigationManager.NavigateTo($"{Username}/{DeckID}");
+        }
+        CurrentPosition++;
+        FlipCard();
+        await deckService.UpdateCard(card);
+    }
+
+    private void EvaluateDaysCount()
+    {
+        Card card = _cards[CurrentPosition];
+        NextAppearDays[0] = CalculateDays(card, Deck.DontRememberFactor);
+        NextAppearDays[1] = CalculateDays(card, Deck.HardRememberFactor);
+        NextAppearDays[2] = CalculateDays(card, Deck.GoodRememberFactor);
+        NextAppearDays[3] = CalculateDays(card, Deck.EasyRememberFactor);
+    }
+    private int CalculateDays(Card card, double factor)
+    {
+        int dayCounter = card.DayCounter == 0 ? 1 : card.DayCounter;
+        decimal expression = (decimal)(factor * (1 * dayCounter));
+        int daysToNextAppear = (int)Math.Round(expression);
+        return daysToNextAppear;
+    }
+
+    private void SetCardIntervals(Card card, int days)
+    {
+        card.DayCounter = days;
+        card.NextAppear = DateTime.Today.AddDays(days);
+    }
+
+    private async Task GetDeckCardsAvailableToday()
+    {
+        var deckID = Convert.ToInt32(DeckID);
+        var apiDeck = await deckService.GetCardsAvailableToday(deckID);
+        if (apiDeck != null)
+        {
+            _cards = apiDeck.ToList();
+        }
+    }
+}
