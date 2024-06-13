@@ -33,9 +33,24 @@
         background-color: inherit;
     }
 
+    .info {
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        top: 85px;
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
 </style>
 
 <div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+        <div class="info">
+            <p style="margin-top: 10px; font-size: 20px;">@(CurrentPosition + 1) / @_cards.Count</p>
+        </div>
     <div class="row w-100">
         <div class="col-2">
             <button @onclick="@(e => CurrentPosition--)" class="h-100 w-100 move-button">
@@ -44,10 +59,14 @@
         </div>
         <div class="col-8" align="center">
             <div @onclick="FlipCard"
-                 style="height: 80vh; border: 1px solid lightgray; border-radius: 10px; border-width: 2px;"
-                 class="flashcard @(isBackSide ? "flashcard-backside-click" : "") d-flex align-items-center justify-content-center">
+                 style="height: 75vh; border: 1px solid lightgray; border-radius: 10px; border-width: 2px;"
+                 class="flashcard @(isBackSide ? "flashcard-backside-click" : "") d-flex flex-column align-items-center justify-content-center">
                 <p class="card-text frontside " style="position:absolute">@_cards[CurrentPosition].FrontSide</p>
                 <p class="card-text backside" style="position:absolute">@_cards[CurrentPosition].BackSide</p>
+                @if (_cards[CurrentPosition].Image != null)
+                {
+                    <img class="frontside" src='data:image;base64,@(Convert.ToBase64String(_cards[CurrentPosition].Image))' style="width:30%; height:auto; aspect-ratio: 1 / 1; border: 1px solid gray; border-radius: 10px; position: absolute; right: 20px; top: 20px" />
+                }
             </div>
         </div>
         <div class="col-2">

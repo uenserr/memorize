@@ -22,6 +22,7 @@ namespace Memorize.Shared.Models
         [Required(ErrorMessage = "Обязательное поле")]
         [StringLength(30, MinimumLength = 1, ErrorMessage = "Длина должна быть от {2} до {1} символов")]
         public string Password { get; set; } = string.Empty;
+        public byte[]? Image { get; set; } = null;
         public virtual List<Deck>? Decks { get; set; }
         public virtual List<Folder>? Folders { get; set; }
 

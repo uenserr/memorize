@@ -1,5 +1,5 @@
 @page "/Auth"
-@inject LoginService loginService
+@inject AuthService authService
 @using Memorize.Client.Pages
 
 <PageTitle>Аутентификация</PageTitle>
@@ -19,7 +19,19 @@ else
 {
     public bool IsSignUpForm = false;
 
-   
+    [Inject]
+
+    public NavigationManager? NavigationManager { get; private set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await authService.GetCurrentUser();
+        if (user != null)
+        {
+            NavigationManager.NavigateTo($"/{user.Login}/Library");
+        }
+
+    }
 
     private void ChangeForm()
     {

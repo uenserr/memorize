@@ -73,6 +73,27 @@ namespace Memorize.Client.Services.Implementations
             }
         }
 
+        public async Task<Deck?> AddDeck(Deck deck)
+        {
+            try
+            {
+                var itemJson = new StringContent(JsonSerializer.Serialize(deck), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"api/decks", itemJson);
+                var responseContent = await response.Content.ReadAsStreamAsync();
+                var responseDeck = await JsonSerializer.DeserializeAsync<Deck>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }); 
+                return responseDeck;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
         public async Task<bool> AddCard(Card card)
         {
             try
@@ -130,7 +151,6 @@ namespace Memorize.Client.Services.Implementations
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine($"Error: {ex.Message}");
                 throw ex;
             }

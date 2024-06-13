@@ -19,15 +19,31 @@
     .answer-input {
         font-size: 30px;
     }
+
+    .info {
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        top: 85px;
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
 </style>
 
 <div class="container h-100 d-flex align-items-center justify-content-center">
+    <div class="info">
+        <p style="margin-top: 10px; font-size: 20px;">@_cards.Count</p>
+    </div>
     <div class="row w-100 h-75">
         <div class="col-12" align="center">
             <div class="card question">
                 <div class="card-body d-flex align-items-center justify-content-center">
                     <p class="card-text">
-                        @_cards[CurrentPosition].BackSide <br>
+                        @_cards[0].BackSide <br>
                         <span style="color: green;">@AnswerLabel</span>
                     </p>
 
@@ -81,7 +97,7 @@
     private NavigationManager? _navigationManager { get; set; }
 
     private List<Card> _cards = new List<Card> { new Card() };
-    private List<Card> _answers = new List<Card>();
+  
 
     public string HintText { get; private set; } = String.Empty;
     public string UserInput { get; private set; } = String.Empty;
@@ -90,27 +106,14 @@
     public string BorderColorStyle { get; private set; } = String.Empty;
     public bool IsHintButtonDisabled { get; private set; }
 
-    private int _currentPosition;
-    public int CurrentPosition
-    {
-        get { return _currentPosition; }
-        set
-        {
-            if (value >= 0 && value < _cards.Count)
-            {
-                _currentPosition = value;
-            }
-        }
-    }
+
     private bool _choisePicked;
+
+    public bool IsAnswerCorrect { get; private set; }
 
     private string[] _nextButtonStyles = new string[4];
     private string[] _answerButtonStyles = new string[4];
 
-    public void SetAnswers()
-    {
-
-    }
 
     private void KeyHandler(KeyboardEventArgs e)
     {
@@ -122,40 +125,47 @@
     {
         if (!_choisePicked)
         {
-            if (UserInput == _cards[CurrentPosition].FrontSide)
+            if (UserInput == _cards[0].FrontSide)
             {
+                IsAnswerCorrect = true;
                 BorderColorStyle = "border-color: green;";
             }
             else
             {
+                IsAnswerCorrect = false;
                 BorderColorStyle = "border-color: rgb(214, 64, 64);";
             }
             _choisePicked = IsHintButtonDisabled = true;
-            AnswerLabel = _cards[CurrentPosition].FrontSide;
+            AnswerLabel = _cards[0].FrontSide;
             ConfirmButtonText = "Далее";
         }
         else
         {
-            if (CurrentPosition == _cards.Count - 1)
+            if (!IsAnswerCorrect)
             {
-                _navigationManager.NavigateTo($"{Username}/{DeckID}");
+                _cards.Add(_cards[0]);
             }
-            CurrentPosition++;
+            _cards.RemoveAt(0);
             _choisePicked = IsHintButtonDisabled = false;
             AnswerLabel = BorderColorStyle = UserInput = String.Empty;
             ConfirmButtonText = "Подтвердить";
+            if (_cards.Count == 0)
+            {
+                _navigationManager.NavigateTo($"{Username}/{DeckID}");
+            }
         }
+        HintText = string.Empty;
     }
 
     private void GetHint()
     {
-        if (HintText == _cards[CurrentPosition].FrontSide)
+        if (HintText == _cards[0].FrontSide)
         {
             ConfirmAnswerClick();
             return;
         }
         UserInput = String.Empty;
-        HintText += _cards[CurrentPosition].FrontSide[HintText.Length];
+        HintText += _cards[0].FrontSide[HintText.Length];
         UserInput = HintText;
 
     }

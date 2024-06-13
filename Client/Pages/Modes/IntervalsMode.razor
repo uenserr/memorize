@@ -26,38 +26,58 @@
     .frontside {
         backface-visibility: hidden;
     }
+
+    .info {
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        top: 85px;
+        border: 2px solid lightgray;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
 </style>
 
 <div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+    <div class="info">
+        <p style="margin-top: 10px; font-size: 20px;">@_cards.Count</p>
+    </div>
     <div class="row w-100">
         <div class="col-2">
         </div>
         <div class="col-8" align="center">
             <div @onclick="FlipCard"
-                style="height: 80vh; border: 1px solid gray; border-radius: 10px; border-width: 2px;"
+                style="height: 75vh; border: 1px solid lightgray; border-radius: 10px; border-width: 2px;"
                 class="flashcard @(isBackSide ? "flashcard-backside-click" : "") d-flex align-items-center justify-content-center">
-                <p class="card-text frontside " style="position:absolute">@_cards[CurrentPosition].FrontSide</p>
-                <p class="card-text backside" style="position:absolute">@_cards[CurrentPosition].BackSide</p>
+                <p class="card-text frontside " style="position:absolute">@_cards[0].FrontSide</p>
+                <p class="card-text backside" style="position:absolute">@_cards[0].BackSide</p>
                 <div class="container backside p-0 h-100 d-flex align-items-center justify-content-center">
                     <div class="row w-100 h-100  align-items-end">
                         <div class="col-3 p-0">
                             <button @onclick="@(e => ConfirmClick(Memorization.DontRemember))" type="button"
-                                class="btn btn-danger w-100" style="border-radius: 0px 0px 0px 8px;">@NextAppearDays[0]
+                                    class="btn btn-danger w-100" style="border-radius: 0px 0px 0px 8px;">
+                                <span style="font-size: 20px">Снова</span><br />@NextAppearDays[0]
                                 дней</button>
                         </div>
                         <div class="col-3 p-0">
                             <button @onclick="@(e => ConfirmClick(Memorization.Hard))" type="button"
-                                class="btn btn-warning w-100" style="border-radius: 0px;">@NextAppearDays[1]
+                                class="btn btn-warning w-100" style="border-radius: 0px;">
+                                <span style="font-size: 20px">Плохо</span><br />@NextAppearDays[1]
                                 дней</button>
                         </div>
                         <div class="col-3 p-0">
                             <button @onclick="@(e => ConfirmClick(Memorization.Good))" type="button"
-                                class="btn btn-success w-100" style="border-radius: 0px;">@NextAppearDays[2]
+                                class="btn btn-success w-100" style="border-radius: 0px;">
+                                <span style="font-size: 20px">Хорошо</span><br />@NextAppearDays[2]
                                 дней</button>
                         </div>
                         <div class="col-3 p-0">
                             <button @onclick="@(e => ConfirmClick(Memorization.Easy))" type="button"
-                                class="btn btn-primary w-100" style="border-radius: 0px 0px 8px 0px;">@NextAppearDays[3]
+                                class="btn btn-primary w-100" style="border-radius: 0px 0px 8px 0px;">
+                                <span style="font-size: 20px">Отлично</span><br />@NextAppearDays[3]
                                 дней</button>
                         </div>
                     </div>
@@ -96,20 +116,6 @@
     public List<Card> _cards = new List<Card> { new Card() };
     public Deck? Deck { get; private set; }
 
-    private int _currentPosition;
-    public int CurrentPosition
-    {
-        get { return _currentPosition; }
-        set
-        {
-            if (value >= 0 && value < _cards.Count)
-            {
-                _currentPosition = value;
-                isBackSide = false;
-                EvaluateDaysCount();
-            }
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,10 +131,11 @@
 
     private async Task ConfirmClick(Memorization memorization)
     {
-        Card card = _cards[CurrentPosition];
+        Card card = _cards[0];
         switch (memorization)
         {
             case Memorization.DontRemember:
+                _cards.Add(_cards[0]);
                 SetCardIntervals(card, NextAppearDays[0]);
                 break;
             case Memorization.Hard:
@@ -141,18 +148,19 @@
                 SetCardIntervals(card, NextAppearDays[3]);
                 break;
         }
-        if (CurrentPosition == _cards.Count - 1)
+        isBackSide = false;
+        _cards.RemoveAt(0);
+        FlipCard();
+        await deckService.UpdateCard(card);
+        if (_cards.Count == 0)
         {
             _navigationManager.NavigateTo($"{Username}/{DeckID}");
         }
-        CurrentPosition++;
-        FlipCard();
-        await deckService.UpdateCard(card);
     }
 
     private void EvaluateDaysCount()
     {
-        Card card = _cards[CurrentPosition];
+        Card card = _cards[0];
         NextAppearDays[0] = CalculateDays(card, Deck.DontRememberFactor);
         NextAppearDays[1] = CalculateDays(card, Deck.HardRememberFactor);
         NextAppearDays[2] = CalculateDays(card, Deck.GoodRememberFactor);

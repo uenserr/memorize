@@ -58,7 +58,7 @@ namespace Server.Controllers
         [HttpGet("param/{query}")]
         public async Task<ActionResult<List<Deck>>> GetDecksByName(string query)
         {
-            var decks = _context.Decks.Where(x => x.Name.Contains(query));
+            var decks = _context.Decks.Where(x => x.Name.Contains(query) && x.IsPublic == true);
             if (decks == null) return NotFound();
             return Ok(decks);
         }
@@ -82,6 +82,8 @@ namespace Server.Controllers
             deckExists.DontRememberFactor = deck.DontRememberFactor;
             deckExists.GoodRememberFactor = deck.GoodRememberFactor;
             deckExists.EasyRememberFactor = deck.EasyRememberFactor;
+            deckExists.FolderID = deck.FolderID;
+            deckExists.IsPublic = deck.IsPublic;
 
             await _context.SaveChangesAsync();
 

@@ -20,7 +20,7 @@ namespace Server.Controllers
             _context = context;
         }
 
-        [HttpGet("user/{id}")]
+        [HttpGet("user/{login}")]
         public async Task<ActionResult<User>> GetUserByLogin(string login)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
@@ -42,6 +42,21 @@ namespace Server.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return Ok(user);
+        }
+
+        [HttpPut()]
+        public async Task<IActionResult> UpdateUser(User user)
+        {
+            var userExists = await _context.Users.FirstOrDefaultAsync(x => x.ID == user.ID);
+            if (userExists == null) return NotFound();
+            userExists.Email = user.Email;
+            userExists.Login = user.Login;
+            userExists.Password = user.Password;
+            userExists.Image = user.Image;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

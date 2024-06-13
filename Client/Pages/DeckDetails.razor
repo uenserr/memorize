@@ -1,6 +1,10 @@
 @page "/{username}/{deckId}"
+@using System.Drawing;
 
 @inject DeckService deckService
+@inject AuthService authService
+
+
 
 <PageTitle>@deck.Name</PageTitle>
 
@@ -12,12 +16,12 @@
         right: 50%;
         width: 80%;
         z-index: 9999;
-        opacity: 0.9;
+        opacity: 0.95;
         transform: translate(-50%, -50%);
         visibility: visible;
     }
 
-        .btn-label {
+    .btn-label {
             position: relative;
             left: -12px;
             display: inline-block;
@@ -48,10 +52,23 @@
             border-bottom-color: rgb(99, 99, 241);
         }
 
+        .file-button {
+            width: 100px;
+        }
+
         .visibile {
             visibility: hidden;
         }
-</style>
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        input[type="file"] {
+            
+        }
+    </style>
 
 <div class="alert alert-warning alert-dismissible fade show alert-fixed" role="alert"
     style="visibility: @_selectionAlertVisibility">
@@ -66,16 +83,69 @@
     <button type="button" @onclick="CloseIntervalsAlertClick" class="btn-close" aria-label="Close" />
 </div>
 
-<div class="container mt-5">
+    <div class="modal fade" id="deckSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Настройки колоды</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <b class="mb-2" style="font-size:20px">Коэф. для интервального повторения</b>
+                            <div>
+                                <span class="badge bg-danger">@deck.DontRememberFactor</span>
+                                "Снова"
+                            </div>
+                            <input class="w-100 p-0 bg-danger" type="range" @bind="deck.DontRememberFactor" min="0" max="5" step="0.1" />
+                        <div>
+                            <span class="badge bg-warning">@deck.HardRememberFactor</span>
+                            "Плохо"
+                        </div>
+                        <input class="w-100 p-0" type="range" @bind="deck.HardRememberFactor" min="0" max="5" step="0.1" />
+                        <div>
+                            <span class="badge bg-success">@deck.GoodRememberFactor</span>
+                            "Хорошо"
+                        </div>
+                        <input class="w-100 p-0" type="range" @bind="deck.GoodRememberFactor" min="0" max="5" step="0.1" />
+                        <div>
+                            <span class="badge bg-primary">@deck.EasyRememberFactor</span>
+                            "Отлично"
+                        </div>
+                        <input class="w-100 p-0" type="range" @bind="deck.EasyRememberFactor" min="0" max="5" step="0.1" />
+   
+
+                        <b class="my-2" style="font-size:20px">Приватность</b>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" @bind="deck.IsPublic" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Колода доступна для других пользователй</label>
+                        </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button @onclick="UpdateDeck" type="button" class="btn btn-primary" data-dismiss="modal">Применить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
     <h1 class="mb-4">@deck.Name</h1>
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row ">
+        <div class="col-lg-6 mb-2">
             <div class="card">
                 <div class="card-body p-2">
                     <div class="container h-100 d-flex align-items-center justify-content-center">
 
-                    <div class="row">
+                        <div class="row">
                         <div class="col-6 g-2">
                                 <div class="card mode-pick" @onclick="@(e => RedirectToDeck("flashcards"))" style="cursor: pointer; height: 100%;">
                                     <div class="card-body">
@@ -106,12 +176,12 @@
                                 </div>
                             </div>
                             <div class="col-6 g-2">
-                                <div class="card mode-pick" @onclick="@(e => RedirectToDeck("intervals"))" style="cursor: pointer; height: 100%;">
+                                <div class="@(IsDeckOwnToUser ? "" : "disabled") card mode-pick" @onclick="@(e => RedirectToDeck("intervals"))" style="cursor: pointer; height: 100%;">
                                     <div class="card-body">
                                         <i class="bi bi-clock-history h3 float-end"></i>
-                                        @if (CardsLearnCount > 0)
+                                        @if (CardsLearnCount > 0 && IsDeckOwnToUser)
                                         {
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: block">
                                                 @CardsLearnCount
                                             </span>
                                         }
@@ -122,26 +192,53 @@
                                     </div>
                                 </div>
                         </div>
-                        
-                        
-                        
+                                                                
                     </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
+       
+
+        <div class="col-lg-6 mb-2">
             <div class="card" style="height: 100%">
-                <div class="card-body" >
+                <div class="card-body d-flex flex-column">
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Название колоды</label>
-                        <InputText class="form-control" @bind-Value="@deck.Name" @onblur="@(e => UpdateDeck())" />
+                        <label class="form-label" for="form2Example1"><b>Название колоды</b></label>
+                        <InputText class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deck.Name" @onblur="@(e => UpdateDeck())" />
                     </div>
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Описание колоды</label>
-                        <InputText class="form-control" @bind-Value="@deck.Description"
-                            @onblur="@(e => UpdateDeck())" />
+                        <label class="form-label" for="form2Example1"><b>Описание колоды</b></label>
+                        <InputTextArea class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deck.Description"
+                                       @onblur="@(e => UpdateDeck())" />
+                    </div>
+
+                    <div class="mt-auto container-fluid">
+                        <div class="row">
+                            <div class="col-6 p-0">
+                                <div class="float-start d-flex flex-row" style="width: 100%;">
+                                    <img src='data:image;base64,@(Convert.ToBase64String(deck.User.Image))' style="width:30px; height:30px; border: 1px solid gray; border-radius:15px" />
+                                    <span style="font-size: 20px; margin-left: 4px">@deck.User.Login</span>
+                                </div>
+                            </div>
+                            <div class="col-6 p-0">
+                                @if (IsDeckOwnToUser)
+                                {
+                                    <button type="button" class="btn btn-labeled btn-secondary h-100 float-end align-self-end mt-auto" data-toggle="modal" data-target="#deckSettingsModal">
+                                        <i class="bi bi-gear"></i>
+                                        Настройки
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button @onclick="CopyDeck" type="button" class="btn btn-labeled btn-primary h-100 float-end align-self-end mt-auto mx-1 ">
+                                        <i class="bi bi-copy"></i>
+                                        Скопировать
+                                    </button>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,37 +247,55 @@
 
 
     @foreach (var deckCard in cards)
-
     {
-        <div class="card-deck mt-2">
+        <div class="card-deck mb-2">
             <div class="card">
                 <div class="card-body">
-                    <button @onclick="@(e => DeleteCard(deckCard))" type="button" class="btn btn-labeled btn-danger float-end">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="form2Example1">Передняя сторона</label>
-                        <InputText class="form-control" @bind-Value="@deckCard.FrontSide"
-                            @onblur="@(e => UpdateCard(deckCard))" />
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-10">
+                                @if (IsDeckOwnToUser)
+                                {
+                                    <InputFile class="float-end mb-2 file-button" OnChange="LoadFile" @onclick="@(e => SetCardForFileAdding(deckCard))">
+                                        <i class="bi bi-file-earmark-plus-fill"></i>
+                                    </InputFile>
+                                }
+                                
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1">Передняя сторона</label>
+                                    <InputText class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deckCard.FrontSide"
+                                               @onblur="@(e => UpdateCard(deckCard))" />
+                                </div>
+                                <div class="form-outline mb-4">
+
+                                    <label class="form-label" for="form2Example1">Задняя сторона</label>
+                                    <InputTextArea class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deckCard.BackSide"
+                                               @onblur="@(e => UpdateCard(deckCard))" />
+                                </div>
+                                
+                            </div>
+                            <div class="col-2">
+                                
+                                <button @onclick="@(e => DeleteCard(deckCard))" type="button" class="btn btn-labeled btn-danger float-end @(IsDeckOwnToUser ? "" : "visually-hidden")">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                @if (deckCard.Image != null)
+                                {
+                                    //Console.WriteLine(deckCard.Image.Length);
+                                    <img src='data:image;base64,@(Convert.ToBase64String(deckCard.Image))' style="width:84%; height: auto; aspect-ratio: 1 / 1; border: 1px solid gray; border-radius: 10px" />
+                                }
+
+                                
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-outline mb-4">
-
-                        <label class="form-label" for="form2Example1">Задняя сторона</label>
-                        <InputText class="form-control" @bind-Value="@deckCard.BackSide"
-                            @onblur="@(e => UpdateCard(deckCard))" />
-                        
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="Basic example">
-
-
-                    </div>
+                    
                 </div>
             </div>
         </div>
     }
     <div class="row mt-4 justify-content-center">
-        <button type="button" @onclick="AddCard" class="btn btn-primary w-50">Добавить</button>
+        <button type="button" @onclick="AddCard" class="btn btn-primary w-50 @(IsDeckOwnToUser ? "" : "visually-hidden")">Добавить</button>
     </div>
 
 </div>
@@ -203,6 +318,40 @@
     private NavigationManager? _navigationManager { get; set; }
 
     public int CardsLearnCount { get; set; }
+
+    private byte[]? _inputFile;
+    private Card? _cardForFileAdding;
+
+    public bool IsDeckOwnToUser { get; private set; }
+
+    private void SetCardForFileAdding(Card card)
+    {
+        _cardForFileAdding = card;
+    }
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            using (var reader = new StreamReader(e.File.OpenReadStream()))
+            {
+                var format = "image/jpeg";
+                var resizedImageFile = await e.File.RequestImageFileAsync(format, 500, 500);
+                var buffer = new byte[resizedImageFile.Size];
+                await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+                _inputFile = buffer;
+            }
+            if (_cardForFileAdding != null)
+            {
+                await UpdateCard(_cardForFileAdding);
+            }       
+        }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine(ex.Message);
+        }
+    }
+
 
     private string _selectionAlertVisibility = "hidden";
     private string _intervalsAlertVisibility = "hidden";
@@ -248,8 +397,11 @@
         }
         else
         {
+
             await GetDeckCards();
             CalculateCardsLearnCount();
+            var currentUser = await authService.GetCurrentUser();
+            IsDeckOwnToUser = currentUser.Login == Username ? true : false;
         }
     }
 
@@ -278,7 +430,29 @@
         }
     }
 
+    private async Task CopyDeck()
+    {
+        var user = await authService.GetCurrentUser();
+        var copiedDeck = new Deck
+        {
+            Name = deck.Name,
+            Description = deck.Description,
+            UserID = user.ID
+        };
+        copiedDeck = await deckService.AddDeck(copiedDeck);
 
+        foreach (var card in deck.Cards)
+        {
+            var copiedCard = new Card
+            {
+                FrontSide = card.FrontSide,
+                BackSide = card.BackSide,
+                Image = card.Image,
+                DeckID = copiedDeck.ID
+            };
+            deckService.AddCard(copiedCard);
+        }
+    }
 
     protected async Task UpdateDeck()
     {
@@ -289,6 +463,7 @@
 
     protected async Task UpdateCard(Card card)
     {
+        card.Image = _inputFile;
         var result = await deckService.UpdateCard(card);
     }
 

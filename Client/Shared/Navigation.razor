@@ -1,18 +1,28 @@
-﻿@inject LoginService loginService
+﻿@inject AuthService loginService
 @inject LibraryService libraryService;
 
 <style>
     .dropdown-menu {
-        margin-right: 60px;
+        margin-left: -90px;
+        margin-top: 20px;
     }
+
+    $('.navbar-collapse a').click(function(){
+        $(".navbar-collapse").collapse('hide');
+    });
+
+        
+}
 </style>
 
 <nav class="navbar navbar-expand-sm px-4 navbar-light bg-light fixed-top" style="border-bottom: 1px solid lightgray">
-    <a class="navbar-brand" href="/">MEMORIZE</a>
+    <a class="navbar-brand" href="/"> <img src="/icon.png" style="width: 30px; height: 30px;"/> MEMORIZE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+    
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0 " style="width: 100%;">
@@ -23,40 +33,33 @@
 
             @if (CurrentUser != null)
             {
-                <li class="nav-item active" style="width: 120px; background-color: red;">
-                    <a class="nav-link" href="@($"{CurrentUser.Login}/Library")">
+                <li class="nav-item active" style="width: 120px;">
+                    <a class="nav-link d-inline-flex align-items-center" href="@($"{CurrentUser.Login}/Library")">
                         Библиотека
-                        <span class="badge badge-pill bg-secondary align-middle d-inline">@CardsLearnCount</span>
+                        <span class="badge rounded-pill bg-danger ">@CardsLearnCount</span>
                     </a>
                 </li>
             }    
 
-            <li class="nav-item">
-                <a class="nav-link" href="#">Линк</a>
-            </li>
-            <li class="nav-item dropdown">
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Меню
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
-            </li>
+            
         </ul>
         <div class="dropdown">
-            <button type="button" class="btn btn-primary btn-circle dropdown" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-person h4"></i>
-            </button>
+            @if (CurrentUser != null)
+            {
+                <button type="button" class=" btn-circle dropdown" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-person h4"></i>
+                </button>
+            }
+            else
+            {
+                <button @onclick="GoToAuthPage" type="button" class=" btn-circle"
+                         aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-person h4"></i>
+                </button>
+            }
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="/profile">Профиль</a>
-                <a class="dropdown-item" href="/settings">Настройки</a>
                 <div class="dropdown-divider"></div>
                 <a @onclick="LogoutClick" class="dropdown-item" href="/">Выход</a>
             </div>
@@ -86,20 +89,18 @@
         CalculateCardsLearnCount();
     }
 
-    private int CalculateCardsLearnCount()
+    private void CalculateCardsLearnCount()
     {
-        int count = 0;
         foreach (var deck in Decks)
         {
             foreach (var card in deck.Cards)
             {
                 if (card.NextAppear <= DateTime.Today)
                 {
-                    count++;
+                    CardsLearnCount++;
                 }
             }
         }
-        return count;
     }
 
     private async Task QueryConfirm(KeyboardEventArgs e)
@@ -108,6 +109,11 @@
         {
             NavigationManager.NavigateTo($"search/?query={Query}", false);
         }
+    }
+
+    private void GoToAuthPage()
+    {
+        NavigationManager.NavigateTo($"auth/", false);
     }
 
     public void LogoutClick()

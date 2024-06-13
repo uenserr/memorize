@@ -1,5 +1,5 @@
 ﻿@page "/search"
-@inject LoginService loginService;
+@inject AuthService loginService;
 @inject SearchService searchService;
 @inject UserService userService;
 @inject NavigationManager navigationManager;
@@ -8,66 +8,104 @@
 
 
 <div class="container mt-4">
-    <h1>Результаты поиска</h1>
-    <h2>Колоды</h2>
+    <h1>Запрос: @Query</h1>
+    <h2 class="m-3"><i class="bi bi-card-list m-2"></i>Колоды</h2>
 
     <div class="row">
-        @foreach (var deck in Decks)
+
+        @if (Decks.Count == 0)
         {
-            <div class="col" @onclick="@(e => RedirectToDeck(deck.ID))" style="cursor: pointer;">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@deck.Name</h5>
-                        <p class="card-text">@deck.Description</p>
-                        <p class="card-text">@deck.User.Login</p>
-                    </div>
-                </div>
-            </div>
+            <p>По текущему запросу колоды отсутствуют</p>
         }
-    </div>
+        else
+        {
 
-        <h1>Пользователи</h1>
-
-        <div class="row">
-            @foreach (var user in Users)
+            foreach (var deck in Decks)
             {
-                <div class="col" @onclick="@(e => RedirectToUser(user.Login))" style="cursor: pointer;">
+                if (_deckCount == 2) break;
+                <div class="col-12 mb-2" @onclick="@(e => RedirectToDeck(deck.ID))" style="cursor: pointer;">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">@user.Login</h5>
+                            <p class="card-title"><b>Название:</b> @deck.Name</p>
+                            <p class="card-text"><b>Описание:</b> @deck.Description</p>
+                            <div class="float-start d-flex flex-row" style="width: 100%;">
+                                <p class="card-text"><b>Автор:</b></p>
+                                <img src='data:image;base64,@(Convert.ToBase64String(deck.User.Image))' style="width:30px; height:30px; margin-left:10px; border: 1px solid gray; border-radius:15px" />
+                                <span style="font-size: 20px; margin-left: 4px">@deck.User.Login</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                _deckCount++;
             }
 
-        <div class="row mt-4 justify-content-center">
-            <button type="button" class="btn btn-primary w-50">Показать еще</button>
-        </div>
+            if (Decks.Count > 2)
+            {
+                <div class="row mt-2 justify-content-center">
+                    <button type="button" class="btn btn-primary w-50">Показать еще</button>
+                </div>
+            }
+        }     
+    </div>
+
+    <h2 class="m-3"><i class="bi bi-people m-2"></i>Пользователи</h2>
+
+    <div class="row">
+        @if (Users.Count == 0)
+        {
+            <p>По текущему запросу пользователи отсутствуют</p>
+        }
+        else
+        {
+            foreach (var user in Users)
+            {
+                if (_userCount == 2) break;
+                <div class="col-12 mb-2" @onclick="@(e => RedirectToUser(user.Login))" style="cursor: pointer;">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title"> @user.Login</p>
+                        </div>
+                    </div>
+                </div>
+                _userCount++;
+            }
+
+            if (Users.Count > 2)
+            {
+                <div class="row mt-2 justify-content-center">
+                    <button type="button" class="btn btn-primary w-50">Показать еще</button>
+                </div>
+            }
+        }
+
     </div>
 </div>
 
-    @code {
+@code {
 
-        [Parameter]
-        [SupplyParameterFromQuery(Name = "query")]
-        public string Query { get; set; } = String.Empty;
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "query")]
+    public string Query { get; set; } = String.Empty;
 
-        public List<Deck> Decks { get; set; } = new List<Deck>();
-        public List<User> Users { get; set; } = new List<User>();
+    public List<Deck> Decks { get; set; } = new List<Deck>();
+    public List<User> Users { get; set; } = new List<User>();
 
-        public User? CurrentUser { get; set; } = new User();
+    public User? CurrentUser { get; set; } = new User();
 
-        protected override async Task OnInitializedAsync()
-        {
-            CurrentUser = await loginService.GetCurrentUser();
-            Decks = await searchService.GetDecksByName(Query);
-            Users = await searchService.GetUsersByName(Query);
-        }
+    private int _deckCount = 0;
+    private int _userCount = 0;
 
-        private void RedirectToDeck(int id)
-        {
-            var deckOwner = Decks.FirstOrDefault(x => x.ID == id).User.Login;
-            navigationManager.NavigateTo($"{deckOwner}/{id}");
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await loginService.GetCurrentUser();
+        Decks = await searchService.GetDecksByName(Query);
+        Users = await searchService.GetUsersByName(Query);
+    }
+
+    private void RedirectToDeck(int id)
+    {
+        var deckOwner = Decks.FirstOrDefault(x => x.ID == id).User.Login;
+        navigationManager.NavigateTo($"{deckOwner}/{id}");
     }
 
     private void RedirectToUser(string login)
@@ -75,5 +113,10 @@
         navigationManager.NavigateTo($"{login}/profile");
     }
 
-
+    private void Check(int z)
+    {
+        Console.WriteLine("users " + Users.Count);
+        Console.WriteLine("decks " + Users.Count);
+        Console.WriteLine(z);
+    }
 }

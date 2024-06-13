@@ -1,6 +1,6 @@
 @page "/{username}/Library"
 @inject LibraryService libraryService;
-@inject LoginService loginService;
+@inject AuthService loginService;
 
 @using Memorize.Client.Pages
 
@@ -25,42 +25,221 @@
     .btn {
         margin-bottom: 10px;
     }
+
+    .scrollable-checkbox-list {
+        max-height: 100px; 
+        overflow-y: auto; 
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+
 </style>
 
 <div class="container mt-4">
-    <h1>Ваши библиотека колод</h1>
+    <h1>Ваша библиотека колод</h1>
+
+    @foreach (var folder in Folders)
+    {
+        <div class="card mb-2">
+            <div class="card-header collapsed card-link py-4">
+
+                <div class="modal fade" id="removeDeckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Вы уверены, что хотите удалить колоду "@DeckForModalInteraction.Name"?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                <button @onclick="@(e => DeleteDeck())" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="removeFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Вы уверены, что хотите удалить папку? "@FolderForModalInteraction.Name"?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                <button @onclick="@(e => DeleteFolder())" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Редактирование</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <EditForm class="form-outline mb-4" Model="@FolderForModalInteraction">
+                                    <DataAnnotationsValidator />
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example1">Название</label>
+                                        <InputText class="form-control" @bind-Value="@FolderForModalInteraction.Name"></InputText>
+                                        <ValidationMessage For="@(() => FolderForModalInteraction.Name)" />
+                                    </div>
+                                </EditForm>
+
+                                <label class="form-label">Колоды в папке</label>
+
+                                <div class="scrollable-checkbox-list">
+                                    <ul class="p-0">
+                                        @foreach (var item in DecksAvailableForDeck)
+                                        {
+                                            <li style="list-style-type: none;">
+                                                <input class="form-check-input" type="checkbox" @bind="item.IsChecked" />
+                                                <span>@item.Deck.Name</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                <button @onclick="@(e => EditFolder())" type="button" class="btn btn-primary" data-dismiss="modal">Применить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-10" data-toggle="collapse"
+                             data-target="#collapsedContainer-@folder.ID">
+                            <i class="bi bi-folder2 h3"></i>
+                            <span style="font-size: 24px;">@folder.Name</span>
+                        </div>
+                        <div class="col-2 p-0 d-flex flex-row justify-content-end">
+                            <button @onclick="@(e => SetFolderForEdit(folder))" class="btn btn-secondary float-end mx-1 my-0" data-toggle="modal" data-target="#editFolderModal">
+                                <i class="bi bi-gear"></i>
+                            </button>
+                            <button @onclick="@(e => SetFolderForEdit(folder))" class="btn btn-danger float-end mx-1 my-0" data-toggle="modal" data-target="#removeFolderModal">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="collapsedContainer-@folder.ID" class="collapse p-3">
+
+                @foreach (var deck in Decks)
+                {
+                    @if (deck.FolderID == folder.ID)
+                    {
+                        <div class="col-md-12 mb-2" style="cursor: pointer;">
+                            <div class="card">
+                                <div class="card-body">                                    
+
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-11" @onclick="@(e => RedirectToDeck(deck.ID))">
+                                                <h5 class="card-title">@deck.Name</h5>
+                                                <p class="card-text">@deck.Description</p>
+                                            </div>
+                                            <div class="col-1 p-0">
+                                                <button type="button" @onclick="@(e => SetDeckForEdit(deck))" class="btn btn-labeled btn-danger float-end" data-toggle="modal" data-target="#removeDeckModal">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (CalculateCardsLearnCount(deck) > 0)
+                                    {
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            @CalculateCardsLearnCount(deck)
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    } 
+                }
+            </div>
+        </div>
+    }
+
+            @foreach (var deck in Decks)
+            {
+                if (deck.Folder == null)
+                {
+                    <div class="col-md-12 mb-2" style="cursor: pointer;">
+                        <div class="card">
+                            <div class="card-body">
+
+                                
+
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-11" @onclick="@(e => RedirectToDeck(deck.ID))">
+                                            <h5 class="card-title">@deck.Name</h5>
+                                            <p class="card-text">@deck.Description</p>
+                                        </div>
+                                        <div class="col-1 p-0">
+                                            <button type="button" @onclick="@(e => SetDeckForEdit(deck))" class="btn btn-labeled btn-danger float-end" data-toggle="modal" data-target="#removeDeckModal">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (CalculateCardsLearnCount(deck) > 0)
+                                {
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        @CalculateCardsLearnCount(deck)
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                } 
+            }
+
+        <div class="row mt-4 justify-content-center">
+
+            <div class="w-50 d-flex flex-row">
+            <button class="btn btn-warning float-end mx-1 my-0" @onclick="AddFolder" style="height:38px" data-toggle="modal" data-target="#editFolderModal">
+                    <i class="bi bi-folder-plus"></i>
+                </button>
+                <button type="button" @onclick="AddDeck" class="btn btn-primary w-100">Добавить</button>
+            </div>
+      
+        </div>
+
 
     
 
-    <div class="row">
-        @foreach (var deck in Decks)
-        {
-            <div class="col-md-4 mb-4" @onclick="@(e => RedirectToDeck(deck.ID))" style="cursor: pointer;">
-                <div class="card">
-                    <div class="card-body">
-                        <button @onclick="@(e => DeleteDeck(deck))" type="button" class="btn btn-labeled btn-danger float-end">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                        @if (CalculateCardsLearnCount(deck) > 0)
-                        {
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                @CalculateCardsLearnCount(deck)
-                            </span>
-                        }
-                        <h5 class="card-title">@deck.Name</h5>
-                        <p class="card-text">@deck.Description</p>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="row mt-4 justify-content-center">
-            <button type="button" @onclick="AddDeck" class="btn btn-primary w-50">Добавить</button>
-        </div>
-    </div>
 </div>
 
 @code {
+
+    public class CheckboxItem
+    {
+        public Deck? Deck { get; set; }
+        public bool IsChecked { get; set; }
+    }
 
     [Parameter]
 
@@ -72,24 +251,60 @@
 
     public List<Deck> Decks { get; set; } = new List<Deck>();
 
+    public List<Folder> Folders { get; set; } = new List<Folder>();
+
     public User? CurrentUser { get; set; } = new User();
 
     public int CardsLearnCount { get; set; } = 0;
 
+    public Deck DeckForModalInteraction { get; private set; } = new Deck();
+
+    public Folder FolderForModalInteraction { get; private set; } = new Folder();
+
+    private List<CheckboxItem> DecksAvailableForDeck { get; set; } = new List<CheckboxItem>();
+
     protected override async Task OnInitializedAsync()
     {
         CurrentUser = await loginService.GetCurrentUser();
-        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+        await GetUserLibrary();
     }
 
+    private void SetDeckForEdit(Deck deck)
+    {
+        DeckForModalInteraction = deck;
+    }
 
+    private void SetFolderForEdit(Folder folder)
+    {
+        FolderForModalInteraction = folder;
+        SetDecksAvailableForFolder();
+    } 
+
+    private void SetDecksAvailableForFolder()
+    {
+        DecksAvailableForDeck.Clear();
+        foreach (var deck in Decks)
+        {
+            if (deck.FolderID == FolderForModalInteraction.ID)
+            {
+                DecksAvailableForDeck.Add(
+                    new CheckboxItem { Deck = deck, IsChecked = true }
+                );
+            }
+            if (deck.Folder == null)
+            {
+                DecksAvailableForDeck.Add(
+                    new CheckboxItem { Deck = deck, IsChecked = false }
+                );
+            }
+
+        }
+    }
 
     private void RedirectToDeck(int id)
     {
         navigationManager.NavigateTo($"{CurrentUser.Login}/{id}");
-    }
-
-
+    } 
 
     private int CalculateCardsLearnCount(Deck deck)
     {
@@ -105,20 +320,64 @@
         return count;
     }
 
+    protected async Task EditFolder()
+    {
+        var result = await libraryService.UpdateFolder(FolderForModalInteraction);
+        if (result)
+        {
+            await SetFolderDecks();
+            SetDecksAvailableForFolder();
+            await GetUserLibrary();
+        }
+    }
 
+    protected async Task SetFolderDecks()
+    {
+        foreach (var item in DecksAvailableForDeck)
+        {
+            if (item.IsChecked)
+            {
+                item.Deck.FolderID = FolderForModalInteraction.ID;
+                await libraryService.UpdateDeck(item.Deck);
+            }
+            else
+            {
+                item.Deck.FolderID = null;
+                await libraryService.UpdateDeck(item.Deck);
+            }
+        }
+    }
 
     protected async Task AddDeck()
     {
         var deck = new Deck { UserID = CurrentUser.ID };
         await libraryService.AddDeck(deck);
-        Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+        await GetUserLibrary();
     }
 
-
-
-    protected async Task DeleteDeck(Deck deck)
+    protected async Task AddFolder()
     {
-        var result = await libraryService.DeleteDeck(deck.ID);
+        var folder = new Folder { UserID = CurrentUser.ID };
+        SetFolderForEdit(folder);
+        await libraryService.AddFolder(folder);
+        await GetUserLibrary();
+    }
+
+    protected async Task DeleteDeck()
+    {
+        var result = await libraryService.DeleteDeck(DeckForModalInteraction.ID);
+        await GetUserLibrary();
+    }
+
+    protected async Task DeleteFolder()
+    {
+        var result = await libraryService.DeleteFolder(FolderForModalInteraction.ID);
+        await GetUserLibrary();
+    }
+
+    private async Task GetUserLibrary()
+    {
         Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
+        Folders = await libraryService.GetCurrentUserFolders(CurrentUser);
     }
 }

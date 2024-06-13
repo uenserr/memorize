@@ -1,19 +1,76 @@
 @page "/profile"
 @page "/{username}/profile"
 @using System.Security.Claims;
-@inject LoginService loginService;
+@inject AuthService authService;
 @inject UserService userService;
+
+<div class="modal fade" id="userSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Настройки профиля</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-4">
+                            <p>Смена аватара:</p>
+                            <div class="d-flex flex-column">
+                                <img class="align-self-center mb-3" alt="Avatar" src='data:image;base64,@(Convert.ToBase64String(User.Image))' style="width: 110px; height: 110px; border: 1px solid lightgray" />
+                                <InputFile class="float-end mb-2 align-self-center" style="width: 100px" OnChange="LoadFile">
+                                    <i class="bi bi-file-earmark-plus-fill"></i>
+                                </InputFile>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example1">Эл. почта</label>
+                                <InputText class="form-control" @bind-Value="@User.Email"/>
+                            </div>
+                            <div class="form-outline mb-4">
+
+                                <label class="form-label" for="form2Example1">Пароль</label>
+                                <InputText class="form-control" @bind-Value="@User.Password" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Применить</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col">
             <div class="card">
                 <div class="card-body text-center">
-                    <img src="https://via.placeholder.com/150" class="rounded-circle mb-4" alt="Avatar">
-                    <h4 class="card-title">@Login</h4>
-                    <p class="card-text">@UserEmail</p>
-                    <p class="card-text">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <a class="btn btn-primary">Edit Profile</a>
+                    @* <img src="https://via.placeholder.com/150" class="rounded-circle mb-4" alt="Avatar"> *@
+
+                    @if (User.Image != null)
+                    {
+                        //Console.WriteLine(deckCard.Image.Length);
+                        <img class="rounded-circle mb-4" alt="Avatar" src='data:image;base64,@(Convert.ToBase64String(User.Image))' style="width: 150px; height: 150px; border: 2px solid lightgray" />
+                    }
+
+                    <h4 class="card-title">@User.Login</h4>
+                    <p class="card-text">@User.Email</p>
+                    
+                    @if (Username != null)
+                    {
+                        <a class="btn btn-primary">Библиотека пользователя</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#userSettingsModal">Редактировать профиль</a>
+                    }
                 </div>
             </div>
         </div>
@@ -27,16 +84,47 @@
     [Inject]
     public NavigationManager? NavigationManager { get; private set; }
 
-    public string UserEmail { get; set; } = string.Empty;
-    public string Login { get; set; } = string.Empty;
+    public User User { get; private set; } = new User();
+
+    private byte[]? _inputFile;
 
     protected override async Task OnInitializedAsync()
     {
-        User? user;
-        if (Username == null) user = await loginService.GetCurrentUser();
-        else user = await userService.GetUserByLogin(Username);
-        UserEmail = user.Email;
-        Login = user.Login;
+        await SetProfileData();
+    }
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            using (var reader = new StreamReader(e.File.OpenReadStream()))
+            {
+                var format = "image/jpeg";
+                var resizedImageFile = await e.File.RequestImageFileAsync(format, 500, 500);
+                var buffer = new byte[resizedImageFile.Size];
+                await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+                _inputFile = buffer;
+            }
+            User.Image = _inputFile;
+            await userService.UpdateUser(User);
+        }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine(ex.Message);
+        }
+    }
+
+    protected async Task SetProfileData()
+    {
+        if (Username == null)
+            User = await authService.GetCurrentUser();
+        else
+            User = await userService.GetUserByLogin(Username);
+    }
+
+    private async Task UpdateUser()
+    {
+        await userService.UpdateUser(await authService.GetCurrentUser());
     }
 
 }

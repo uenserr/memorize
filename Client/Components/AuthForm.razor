@@ -1,4 +1,4 @@
-﻿@inject LoginService loginService
+﻿@inject AuthService loginService
 @inject NavigationManager navigationManager
 
 <style>
@@ -7,15 +7,21 @@
         border: none;
         background: none;
     }
+
+    .valid.modified:not([type=checkbox]) {
+        outline: 0px solid white;
+    }
+
 </style>
 
 <div class="container h-100 d-flex align-items-center justify-content-center">
     <div class="row">
         <div class="col">
+            <p style="visibility: @(IsInputDataIncorrect ? "visible" : "hidden"); color: red">Некорректные данные для входа</p>
             <EditForm class="form-outline mb-4" Model="@User" OnInvalidSubmit="@HandleFailedRequest" OnValidSubmit="@HandleValidRequest">
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example1">Почта / Логин</label>
-                    <InputText class="form-control" @bind-Value="@User.Email"></InputText>
+                    <label class="form-label" for="form2Example1">Логин</label>
+                    <InputText class="form-control"  @bind-Value="@User.Login"></InputText>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -41,22 +47,6 @@
 
                 <div class="text-center">
                     <p>Нет учетной записи? <a @onclick="ChangeForm" href="/auth">Регистрация</a></p>
-                    <p>Или войти с помощью:</p>
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                        <i class="fab fa-facebook-f"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                        <i class="fab fa-google"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                        <i class="fab fa-twitter"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-link btn-floating mx-1">
-                        <i class="fab fa-github"></i>
-                    </button>
                 </div>
             </EditForm>
         </div>
@@ -70,8 +60,9 @@
     [Parameter]
     public EventCallback<bool> IsSignUpFormChanged { get; set; }
 
-    protected string Message = string.Empty;
     protected User User = new User();
+
+    public bool IsInputDataIncorrect { get; private set; }
 
     private async Task ChangeForm()
     {
@@ -82,12 +73,12 @@
 
     protected void HandleFailedRequest()
     {
-        Message = "Something went wrong";
+        IsInputDataIncorrect = true;
     }
 
     protected async Task HandleValidRequest()
     {
-        User.Login = "post";
+        User.Email = "post";
         var result = await loginService.Login(User);
         if (result)
         {
@@ -95,7 +86,7 @@
         }
         else
         {
-            Message = "Incorrect data";
+            IsInputDataIncorrect = true;
         }
     }
 }

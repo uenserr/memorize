@@ -55,5 +55,3 @@ app.MapFallbackToFile("index.html");
 app.UseStatusCodePagesWithReExecute("/404");
 
 app.Run();
-
-Console.WriteLine("Start");

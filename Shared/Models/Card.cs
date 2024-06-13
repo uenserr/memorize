@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Memorize.Shared.Models
 {
-    public class Card
+    public class Card 
     {
         [Key]
         public int ID { get; set; } = 0;
         public string FrontSide { get; set; } = string.Empty;
         public string BackSide { get; set; } = string.Empty;
-        public byte[]? Image { get; set; } = new byte[0];
+        public byte[]? Image { get; set; } = null;
         public DateTime? NextAppear { get; set; } = DateTime.Today;
         public int DayCounter { get; set; } = 0;
         public int DeckID { get; set; }

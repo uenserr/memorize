@@ -72,20 +72,23 @@ namespace Memorize.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DontRememberFactor")
-                        .HasColumnType("int");
+                    b.Property<double>("DontRememberFactor")
+                        .HasColumnType("float");
 
-                    b.Property<int>("EasyRememberFactor")
-                        .HasColumnType("int");
+                    b.Property<double>("EasyRememberFactor")
+                        .HasColumnType("float");
 
                     b.Property<int?>("FolderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("GoodRememberFactor")
-                        .HasColumnType("int");
+                    b.Property<double>("GoodRememberFactor")
+                        .HasColumnType("float");
 
-                    b.Property<int>("HardRememberFactor")
-                        .HasColumnType("int");
+                    b.Property<double>("HardRememberFactor")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -135,15 +138,21 @@ namespace Memorize.Server.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("ID");
 

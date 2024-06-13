@@ -33,3 +33,15 @@ C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\Shared\obj\D
 C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\Shared\obj\Debug\net7.0\refint\Memorize.Shared.dll
 C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.pdb
 C:\Users\uense\OneDrive\Рабочий стол\mem\memorize-master\Shared\obj\Debug\net7.0\ref\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\bin\Debug\net7.0\Memorize.Shared.deps.json
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\bin\Debug\net7.0\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\bin\Debug\net7.0\Memorize.Shared.pdb
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.AssemblyInfoInputs.cache
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.AssemblyInfo.cs
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.csproj.CoreCompileInputs.cache
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.sourcelink.json
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\refint\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\Memorize.Shared.pdb
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Shared\obj\Debug\net7.0\ref\Memorize.Shared.dll

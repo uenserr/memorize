@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Client\\Memorize.Client.csproj": {}
+    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\Memorize.Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Client\\Memorize.Client.csproj": {
+    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\Memorize.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Client\\Memorize.Client.csproj",
+        "projectUniqueName": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\Memorize.Client.csproj",
         "projectName": "Memorize.Client",
-        "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Client\\Memorize.Client.csproj",
+        "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\Memorize.Client.csproj",
         "packagesPath": "C:\\Users\\uense\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Client\\obj\\",
+        "outputPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\uense\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,8 +27,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj": {
-                "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj"
+              "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\Memorize.Shared.csproj": {
+                "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\Memorize.Shared.csproj"
               }
             }
           }
@@ -77,6 +77,10 @@
               "target": "Package",
               "version": "[8.0.1, )",
               "autoReferenced": true
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.6, )"
             }
           },
           "imports": [
@@ -122,14 +126,14 @@
         }
       }
     },
-    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj": {
+    "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\Memorize.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\Memorize.Shared.csproj",
         "projectName": "Memorize.Shared",
-        "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\Memorize.Shared.csproj",
+        "projectPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\Memorize.Shared.csproj",
         "packagesPath": "C:\\Users\\uense\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\mem\\memorize-master\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\uense\\AppData\\Roaming\\NuGet\\NuGet.Config",

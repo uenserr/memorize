@@ -39,11 +39,31 @@ namespace Memorize.Client.Services.Implementations
             }
         }
 
+        public async Task<List<Folder>?> GetCurrentUserFolders(User user)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/folders/user/{user.ID}");
+                var responseBody = await response.Content.ReadAsStreamAsync();
+                var folders = await JsonSerializer.DeserializeAsync<List<Folder>>(responseBody, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    ReferenceHandler = ReferenceHandler.Preserve
+                });
+                return folders;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
         public async Task<bool> AddDeck(Deck deck)
         {
             try
             {
-                deck.Name = "New deck";
+                deck.Name = "Новая колода";
                 var itemJson = new StringContent(JsonSerializer.Serialize(deck), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync($"api/decks", itemJson);
                 return response.IsSuccessStatusCode;
@@ -72,6 +92,21 @@ namespace Memorize.Client.Services.Implementations
             }
         }
 
+        public async Task<bool> UpdateFolder(Folder folder)
+        {
+            try
+            {
+                var itemJson = new StringContent(JsonSerializer.Serialize(folder), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"api/folders", itemJson);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
         public async Task<bool> DeleteDeck(int id)
         {
             try
@@ -81,6 +116,37 @@ namespace Memorize.Client.Services.Implementations
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
+        public async Task<bool> DeleteFolder(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/folders/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
+        public async Task<bool> AddFolder(Folder folder)
+        {
+            try
+            {
+                folder.Name = "Новая папка";
+                var itemJson = new StringContent(JsonSerializer.Serialize(folder), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"api/folders", itemJson);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+
                 Console.WriteLine($"Error: {ex.Message}");
                 throw ex;
             }

@@ -29,7 +29,7 @@ namespace Server.Controllers
         public async Task<IActionResult> GetCurrentUser()
         {
             Console.WriteLine("getUserHere");
-            var user = await _context.Users.FirstOrDefaultAsync(p => p.Email == HttpContext.User.Identity.Name);
+            var user = await _context.Users.FirstOrDefaultAsync(p => p.Login == HttpContext.User.Identity.Name);
             if (user is null) return Unauthorized();
             return Ok(user);
         }
@@ -38,7 +38,7 @@ namespace Server.Controllers
         public async Task<IActionResult> Login(User user)
         {
             var userExist = await _context.Users
-                .FirstOrDefaultAsync(p => p.Email == user.Email && p.Password == user.Password);
+                .FirstOrDefaultAsync(p => p.Login == user.Login && p.Password == user.Password);
             if (userExist is null) return Unauthorized();
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, userExist.Login) };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");

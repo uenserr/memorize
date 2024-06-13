@@ -20,13 +20,12 @@ namespace Server.Controllers
         public CardsController(ApiDbContext context)
         {
             _context = context;
-            //_currentUser = _context.Users.FirstOrDefault(x => x.Login == HttpContext.User.Identity.Name);
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Deck>>> GetCards()
         {
-            var decks = await _context.Decks.Where(x => x.UserID == LoginService.CurrentUser.ID).ToListAsync();
+            var decks = await _context.Decks.Where(x => x.UserID == AuthService.CurrentUser.ID).ToListAsync();
             if (decks == null) return NotFound();
             List<Card> cards = new List<Card>();
             foreach (var deck in decks)
@@ -70,6 +69,7 @@ namespace Server.Controllers
             cardExists.BackSide = card.BackSide;
             cardExists.DayCounter = card.DayCounter;
             cardExists.NextAppear = card.NextAppear;
+            cardExists.Image = card.Image;
 
             await _context.SaveChangesAsync();
 
