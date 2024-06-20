@@ -1,7 +1,7 @@
 {
   "entryAssembly": "Memorize.Client",
   "resources": {
-    "hash": "sha256-Vt94I1NOwYGklAXUJ47PuIppqMCAsj1S1CWedtopbek=",
+    "hash": "sha256-9VCfEz/C+weelLv38bXSTaBtk4YRy1H0KYimABW7E2g=",
     "runtime": {
       "dotnet.7.0.15.h3e7chu34f.js": "sha256-MHuxwxeVFybuBBTAWeZrvoStZpW+H4ThSaRcFvrfqXM=",
       "dotnet.timezones.blat": "sha256-aHk3Pm2JXopn6UPLJtovAqIdIk8GyIMzGm450cli9UE=",
@@ -35,6 +35,8 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-seZkkGFvJSZtenptwTnqn8hg73jxbtU0sd5DUGYXkTs=",
       "Microsoft.JSInterop.dll": "sha256-tDUEq1bRgkbwPRKdclDqQy6f2l2zgHm+84KImibIOF8=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-jZp0x8/BJDWy8XWsxYJaiGXW3zObZi90AYiYGjhemMU=",
+      "Microsoft.Win32.SystemEvents.dll": "sha256-DD+6YsqedmSngBnrfVF0Jh8Z831Cv5dfF8pd0eRVnjw=",
+      "System.Drawing.Common.dll": "sha256-saNpT6onsaz5v6b2gTgQ5VjjgMAukBqTpVcnzAgQlf8=",
       "System.IO.Pipelines.dll": "sha256-P/MqD0fCBd5bgTM16JC1QC/Zz7s+CwViyzmDFkBG4/c=",
       "Microsoft.CSharp.dll": "sha256-a6OztVV/ERaGFdMi7bvRQ6S+NoZUje1B1bHizd2g5JA=",
       "Microsoft.VisualBasic.Core.dll": "sha256-REkXTPfMocnfk5vCD/43x/DTzpO0uj7vNmdmUy7T9zU=",
@@ -204,12 +206,12 @@
       "mscorlib.dll": "sha256-fVDx40u1vKqhdy509hDF73SIx6C5q5Mst93LwfZWVQY=",
       "netstandard.dll": "sha256-ohOFXxRJKiyPbitdA1y5ebD9fSAGELDRVmhDM2nVdtA=",
       "System.Private.CoreLib.dll": "sha256-7Y6AhJbgMptcdman3NtSEbcJV520wGmyxB8QvZwrUmc=",
-      "Memorize.Shared.dll": "sha256-j0iLkzudyH9U9Q1V2DysTysg1Onqly9mn0r7G9w8pSo=",
-      "Memorize.Client.dll": "sha256-3/3ZYYd3ijkQUnr5A5CKLDYmuih40HLRvlI+X9VdsFM="
+      "Memorize.Shared.dll": "sha256-0ytm0aY31Z5Kvuyro9iNVOvnO1dPCA54/xI+LZJsJqU=",
+      "Memorize.Client.dll": "sha256-66dN8gilqXIzddubcwJGUFvBqJ7I83mHkvLc9WR34Jo="
     },
     "pdb": {
-      "Memorize.Shared.pdb": "sha256-HNj/fK9ZAxYCrwHg9t2jvhGlrJIkI6TUuuuQ9+xuCsI=",
-      "Memorize.Client.pdb": "sha256-yqe025jiqFzMETKVHKPIOvXWzuBm40fqkNSSGgupDE4="
+      "Memorize.Shared.pdb": "sha256-AsxMn41KGmESM0jzJFIQTFr7STACXnv0jj+cXN8WqgM=",
+      "Memorize.Client.pdb": "sha256-9bzuuGHsCdSc0tuVxnp2W8DzSu+LV0nY/zNX5MG7UXM="
     },
     "runtimeAssets": {
       "dotnet.wasm": {

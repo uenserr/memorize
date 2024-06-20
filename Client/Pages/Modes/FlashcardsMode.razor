@@ -1,7 +1,7 @@
 ﻿@page "/{username}/{deckId}/flashcards"
 @inject DeckService deckService
 
-<PageTitle></PageTitle>
+<PageTitle>Карточки</PageTitle>
 
 <style>
     .flashcard {
@@ -44,7 +44,6 @@
         justify-content: center;
         align-content: center;
     }
-
 </style>
 
 <div class="container-fluid h-100 d-flex align-items-center justify-content-center">
@@ -65,7 +64,7 @@
                 <p class="card-text backside" style="position:absolute">@_cards[CurrentPosition].BackSide</p>
                 @if (_cards[CurrentPosition].Image != null)
                 {
-                    <img class="frontside" src='data:image;base64,@(Convert.ToBase64String(_cards[CurrentPosition].Image))' style="width:30%; height:auto; aspect-ratio: 1 / 1; border: 1px solid gray; border-radius: 10px; position: absolute; right: 20px; top: 20px" />
+                    <img class="frontside" src='data:image;base64,@(Convert.ToBase64String(_cards[CurrentPosition].Image))' style="width:28%; max-width:165px; height:auto; aspect-ratio: 1 / 1; border: 1px solid gray; border-radius: 10px; position: absolute; right: 20px; top: 20px" />
                 }
             </div>
         </div>

@@ -1,4 +1,4 @@
-﻿@inject AuthService loginService
+﻿@inject AuthService authService
 @inject NavigationManager navigationManager
 
 <style>
@@ -69,7 +69,8 @@
 
     protected async Task HandleValidRequest()
     {
-        var result = await loginService.SignUp(User);
+        User.RoleID = 1;
+        var result = await authService.SignUp(User);
         if (result)
         {
             navigationManager.NavigateTo("/", true);

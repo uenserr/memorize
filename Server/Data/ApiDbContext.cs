@@ -19,5 +19,7 @@ namespace Memorize.Server.Data
         public DbSet<Deck> Decks { get; set; }
         public DbSet<Folder> Folders { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Report> Reports { get; set; }
     }
 }

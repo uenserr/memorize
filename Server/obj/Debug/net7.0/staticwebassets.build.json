@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bNrATvOzNfax2v5Vg/zrnbTh59UNbghhsdiomc83QHg=",
+  "Hash": "T4B3/Xv7FpLsOz0hTP0hGmQQFL2rxbSDve+/Gx+Akek=",
   "Source": "Memorize.Server",
   "BasePath": "_content/Memorize.Server",
   "Mode": "Default",
@@ -8256,25 +8256,6 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\favicon2.png",
-      "SourceId": "Memorize.Client",
-      "SourceType": "Project",
-      "ContentRoot": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "favicon2.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon2.png"
-    },
-    {
       "Identity": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\icon.png",
       "SourceId": "Memorize.Client",
       "SourceType": "Project",
@@ -8292,25 +8273,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\icon.png"
-    },
-    {
-      "Identity": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\icon-192.png",
-      "SourceId": "Memorize.Client",
-      "SourceType": "Project",
-      "ContentRoot": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "icon-192.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icon-192.png"
     },
     {
       "Identity": "C:\\Users\\uense\\OneDrive\\Рабочий стол\\memorize-master (1)\\memorize-master\\Client\\wwwroot\\Icons\\card-back-50.png",

@@ -11,7 +11,11 @@ namespace Memorize.Shared.Models
     {
         [Key]
         public int ID { get; set; } = 0;
+
+        [MaxLength(64)]
         public string Name { get; set; } = string.Empty;
+
+        [MaxLength(255)]
         public string Description { get; set; } = string.Empty;
         public bool IsPublic { get; set; } = true;
         public double EasyRememberFactor { get; set; } = 3;
@@ -23,6 +27,6 @@ namespace Memorize.Shared.Models
         public virtual Folder? Folder { get; set; }
         public virtual User? User { get; set; }
         public virtual List<Card>? Cards { get; set; }
-
+        public virtual List<Report>? Reports { get; set; }
     }
 }

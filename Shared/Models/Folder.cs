@@ -10,6 +10,8 @@ namespace Memorize.Shared.Models
     {
         [Key]
         public int ID { get; set; } = 0;
+
+        [MaxLength(64)]
         public string Name { get; set; } = string.Empty;
         public int UserID { get; set; }
         public virtual List<Deck>? Decks { get; set; } 

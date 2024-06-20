@@ -24,12 +24,21 @@ namespace Memorize.Server.Controllers
             return Ok(folders);
         }
 
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Folder>> GetFolder(int id)
         {
             var card = _context.Folders.FirstOrDefault(x => x.ID == id);
             if (card == null) return NotFound();
             return Ok(card);
+        }
+
+        [HttpGet("param/{query}")]
+        public async Task<ActionResult<List<Folder>>> GetFoldersByName(string query)
+        {
+            var folders = _context.Folders.Where(x => x.Name.Contains(query));
+            if (folders == null) return NotFound();
+            return Ok(folders);
         }
 
         [HttpPost("")]

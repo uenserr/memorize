@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Memorize.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89acdc65997a791a8d6e88f4a82f637623032b53")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee172801cb07a3960694c368e3252d070a21faf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Memorize.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Memorize.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

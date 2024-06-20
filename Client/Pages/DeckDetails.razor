@@ -3,7 +3,7 @@
 
 @inject DeckService deckService
 @inject AuthService authService
-
+@inject ReportService reportService
 
 
 <PageTitle>@deck.Name</PageTitle>
@@ -66,8 +66,9 @@
         }
 
         input[type="file"] {
-            
+            display: none;
         }
+
     </style>
 
 <div class="alert alert-warning alert-dismissible fade show alert-fixed" role="alert"
@@ -82,6 +83,35 @@
     <strong>На текущий момент карты для повторения отсутствуют!</strong> Повторите попытку позже.
     <button type="button" @onclick="CloseIntervalsAlertClick" class="btn-close" aria-label="Close" />
 </div>
+
+    <div class="modal fade" id="sendReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Отправить жалобу</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1">Сообщение</label>
+                                    <InputTextArea class="form-control" @bind-Value="@Report.Message" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button @onclick="SendReport" type="button" class="btn btn-primary" data-dismiss="modal">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="deckSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -120,7 +150,7 @@
 
                         <div class="form-check form-switch">
                             <input class="form-check-input" @bind="deck.IsPublic" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Колода доступна для других пользователй</label>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Колода доступна для других пользователей</label>
                         </div>
 
                         </div>
@@ -137,7 +167,12 @@
     </div>
 
     <div class="container mt-5">
-    <h1 class="mb-4">@deck.Name</h1>
+        <div class="d-flex flex-row w-100 justify-content-between">
+            <h1 class="mb-4">@deck.Name </h1>
+            <h2 class="mb-4 align-self-end">Карты: @deck.Cards.Count</h2>
+        </div>
+   
+
 
     <div class="row ">
         <div class="col-lg-6 mb-2">
@@ -218,24 +253,38 @@
                         <div class="row">
                             <div class="col-6 p-0">
                                 <div class="float-start d-flex flex-row" style="width: 100%;">
-                                    <img src='data:image;base64,@(Convert.ToBase64String(deck.User.Image))' style="width:30px; height:30px; border: 1px solid gray; border-radius:15px" />
+                                    @if (deck.User.Image == null)
+                                    {
+                                        <img src='/defaultAvatar.jpg' style="width:30px; height:30px; border: 1px solid gray; border-radius:15px" />
+                                    }
+                                    else
+                                    {
+                                        <img src='data:image;base64,@(Convert.ToBase64String(deck.User.Image))' style="width:30px; height:30px; border: 1px solid gray; border-radius:15px" />
+                                    }
                                     <span style="font-size: 20px; margin-left: 4px">@deck.User.Login</span>
                                 </div>
                             </div>
                             <div class="col-6 p-0">
-                                @if (IsDeckOwnToUser)
+                                @if (CurrentUser != null)
                                 {
-                                    <button type="button" class="btn btn-labeled btn-secondary h-100 float-end align-self-end mt-auto" data-toggle="modal" data-target="#deckSettingsModal">
-                                        <i class="bi bi-gear"></i>
-                                        Настройки
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button @onclick="CopyDeck" type="button" class="btn btn-labeled btn-primary h-100 float-end align-self-end mt-auto mx-1 ">
-                                        <i class="bi bi-copy"></i>
-                                        Скопировать
-                                    </button>
+                                    @if (IsDeckOwnToUser)
+                                    {
+                                        <button type="button" class="btn btn-labeled btn-secondary h-100 float-end align-self-end mt-auto" data-toggle="modal" data-target="#deckSettingsModal">
+                                            <i class="bi bi-gear"></i>
+                                            Настройки
+                                        </button>
+                                    }
+                                    else
+                                    {
+
+                                        <button @onclick="CopyDeck" type="button" class="btn btn-labeled btn-primary h-100 float-end align-self-end mt-auto mx-1 ">
+                                            <i class="bi bi-copy"></i>
+                                            Скопировать
+                                        </button>
+                                        <button type="button" class="btn btn-labeled btn-danger h-100 float-end align-self-end mt-auto mx-1" data-toggle="modal" data-target="#sendReportModal">
+                                            <i class="bi bi-flag"></i>
+                                        </button>
+                                    }
                                 }
                             </div>
                         </div>
@@ -256,32 +305,35 @@
                             <div class="col-10">
                                 @if (IsDeckOwnToUser)
                                 {
-                                    <InputFile class="float-end mb-2 file-button" OnChange="LoadFile" @onclick="@(e => SetCardForFileAdding(deckCard))">
+                                    <InputFile id="file" OnChange="LoadFile" >
                                         <i class="bi bi-file-earmark-plus-fill"></i>
                                     </InputFile>
+                                    <label @onclick="@(e => SetCardForFileAdding(deckCard))" for="file" class="btn btn-sm btn-secondary float-end">
+                                        <i class="bi bi-file-earmark-image"></i>
+                                        Загрузить
+                                    </label>
                                 }
                                 
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example1">Передняя сторона</label>
+                                    <label class="form-label" for="form2Example1"><b>Вопрос</b></label>
                                     <InputText class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deckCard.FrontSide"
-                                               @onblur="@(e => UpdateCard(deckCard))" />
+                                               @onblur="@(e => UpdateCard(deckCard, false))" />
                                 </div>
                                 <div class="form-outline mb-4">
 
-                                    <label class="form-label" for="form2Example1">Задняя сторона</label>
+                                    <label class="form-label" for="form2Example1"><b>Ответ</b></label>
                                     <InputTextArea class="form-control" style="@(IsDeckOwnToUser ? "" : "pointer-events: none; opacity: 0.8")" @bind-Value="@deckCard.BackSide"
-                                               @onblur="@(e => UpdateCard(deckCard))" />
+                                               @onblur="@(e => UpdateCard(deckCard, false))" />
                                 </div>
                                 
                             </div>
                             <div class="col-2">
                                 
-                                <button @onclick="@(e => DeleteCard(deckCard))" type="button" class="btn btn-labeled btn-danger float-end @(IsDeckOwnToUser ? "" : "visually-hidden")">
+                                <button @onclick="@(e => DeleteCard(deckCard))" type="button" style="margin-right: -12px" class="btn btn-labeled btn-danger float-end @(IsDeckOwnToUser ? "" : "visually-hidden")">
                                     <i class="bi bi-trash"></i>
                                 </button>
                                 @if (deckCard.Image != null)
                                 {
-                                    //Console.WriteLine(deckCard.Image.Length);
                                     <img src='data:image;base64,@(Convert.ToBase64String(deckCard.Image))' style="width:84%; height: auto; aspect-ratio: 1 / 1; border: 1px solid gray; border-radius: 10px" />
                                 }
 
@@ -317,6 +369,10 @@
 
     private NavigationManager? _navigationManager { get; set; }
 
+    public User? CurrentUser { get; set; }
+
+    public Report Report { get; set; } = new Report();
+
     public int CardsLearnCount { get; set; }
 
     private byte[]? _inputFile;
@@ -343,7 +399,7 @@
             }
             if (_cardForFileAdding != null)
             {
-                await UpdateCard(_cardForFileAdding);
+                await UpdateCard(_cardForFileAdding, true);
             }       
         }
         catch (Exception ex)
@@ -397,11 +453,14 @@
         }
         else
         {
-
+            CurrentUser = await authService.GetCurrentUser();
             await GetDeckCards();
             CalculateCardsLearnCount();
-            var currentUser = await authService.GetCurrentUser();
-            IsDeckOwnToUser = currentUser.Login == Username ? true : false;
+            
+            if (CurrentUser == null) 
+                IsDeckOwnToUser = false;
+            else 
+                IsDeckOwnToUser = CurrentUser.Login == Username ? true : false;
         }
     }
 
@@ -417,7 +476,11 @@
         }
     }
 
-
+    private async Task SendReport()
+    {
+        Report.DeckID = deck.ID;
+        var result = reportService.AddReport(Report);
+    }
 
     private async Task GetDeckCards()
     {
@@ -432,12 +495,11 @@
 
     private async Task CopyDeck()
     {
-        var user = await authService.GetCurrentUser();
         var copiedDeck = new Deck
         {
             Name = deck.Name,
             Description = deck.Description,
-            UserID = user.ID
+            UserID = CurrentUser.ID
         };
         copiedDeck = await deckService.AddDeck(copiedDeck);
 
@@ -461,9 +523,9 @@
 
 
 
-    protected async Task UpdateCard(Card card)
+    protected async Task UpdateCard(Card card, bool loadImageState)
     {
-        card.Image = _inputFile;
+        if (loadImageState) card.Image = _inputFile;
         var result = await deckService.UpdateCard(card);
     }
 

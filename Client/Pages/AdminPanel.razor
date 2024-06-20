@@ -1,0 +1,422 @@
+﻿@page "/adminpanel"
+@inject UserService userService
+@inject ReportService reportService
+@inject AuthService authService
+@using System.Reflection
+
+<style>
+    .card {
+        border: 2px solid lightgray;
+    }
+
+</style>
+
+@if (CurrentUser == null || CurrentUser.RoleID != 0)
+{
+    <Error404/>
+}
+else
+{
+    <div class="modal fade" id="removeUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы уверены, что хотите удалить уч.запись "@UserForEdit.Login"?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button @onclick="DeleteUser" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="handleReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Жалоба</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1"><b>Сообщение</b></label>
+                                    <p>@ReportToHandle.Message</p>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1"><b>Колода</b></label><br />
+                                    <a onclick="$('#handleReportModal').modal('hide')" href="@(ReportToHandle.Deck != null ? $"{ReportToHandle.Deck.User.Login}/{ReportToHandle.Deck.ID}" : "")">
+                                        @(ReportToHandle.Deck != null ? ReportToHandle.Deck.Name : "")
+                                    </a>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1"><b>Автор колоды</b></label>
+                                    <p>@(ReportToHandle.Deck != null ? ReportToHandle.Deck.User.Login : "")</p>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1"><b>Дата отправления</b></label>
+                                    <p>@ReportToHandle.Date</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    @if (!ReportToHandle.IsHandled)
+                    {
+                        <button @onclick="@(e => BanUser(true))" type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="bi bi-ban"></i>
+                            Заблокировать уч.запись
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Настройки уч. записи</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                @if (UserForEdit.RoleID == 0)
+                                {
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example1">Логин</label>
+                                        <InputText class="form-control" @bind-Value="@UserForEdit.Login" />
+                                    </div>
+                                }  
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1">Эл. почта</label>
+                                    <InputText class="form-control" @bind-Value="@UserForEdit.Email" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form2Example1">Пароль</label>
+                                    <InputText class="form-control" @bind-Value="@UserForEdit.Password" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (UserForEdit.RoleID != 0)
+                    {
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" @bind="IsUserForEditBanned" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Заблокирован</label>
+                        </div>
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                    <button @onclick="UpdateUser" type="button" class="btn btn-primary" data-dismiss="modal">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-lg-4" style="margin-bottom: 80px">
+                <div class="d-flex flex-row w-100 justify-content-between">
+                    <h4>Жалобы</h4>
+
+                    <InputSelect @bind-Value="ReportFilter" class="form-select mb-3 w-50" aria-label=".form-select-sm example">
+                        <option value="waiting">Ожидающие</option>
+                        <option value="handled">Выполненные</option>
+                    </InputSelect>
+                </div>
+                <div class="card w-100" style="height: 75vh; overflow-y: auto;">
+                    <div class="card-body">
+                        @foreach (var report in FilteredReports)
+                        {
+                            <div class="mb-2">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="container-fluid" style="cursor: pointer">
+                                            <div class="row">
+                                                <div class="col-12 p-0">
+
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-11 d-flex flex-column p-0" @onclick="@(e => SetReportToHandle(report))" data-toggle="modal" data-target="#handleReportModal">
+
+
+                                                                <div class="float-start d-flex flex-row" style="width: 100%;">
+
+                                                                    <div class="d-flex flex-column px-2 w-100">
+                                                                        <span style="font-size: 16px; width: 100%;"><b>Сообщение:</b><br /> @report.Message</span>
+                                                                        <span style="font-size: 16px"><b>Колода:</b> @report.Deck.Name</span>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-1 p-0 d-flex align-items-start justify-content-end">
+                                                                <button @onclick="@(e => DeleteReport(report))" type="button" class="btn-close btn-labeled float-end">
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 mb-4">
+                <div class="d-flex flex-row w-100 justify-content-between">
+                    <h4>Учетные записи</h4>
+                    <div class="input-group mb-3 w-50">
+                        <span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-search"></i></span>
+                        <input @onkeydown="QueryConfirm" @bind-value="@LoginQuery"
+                               @bind-value:event="oninput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <div class="card w-100" style="height: 75vh; overflow-y: auto;">
+                    <div class="card-body">
+                        @foreach (var user in Users)
+                        {
+                            <div class="mb-2">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 p-0">
+
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-9 d-flex flex-column p-0">
+
+
+                                                                <div class="float-start d-flex flex-row" style="width: 100%;">
+
+                                                                    @if (user.Image == null)
+                                                                    {
+                                                                        <img alt="Avatar" src='/defaultAvatar.jpg' style="width:46px; height:46px; border: 1px solid gray; border-radius:40px" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img alt="Avatar" src='data:image;base64,@(Convert.ToBase64String(user.Image))' style="width:46px; height:46px; border: 1px solid gray; border-radius:40px" />
+                                                                    }
+
+                                                                    <div class="d-flex flex-column px-2">
+                                                                        <span style="font-size: 16px"><b>Логин:</b> @user.Login</span>
+                                                                        <span style="font-size: 16px"><b>Статус:</b> @user.Roles.Name</span>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-3 p-0 d-flex align-items-center justify-content-end">
+
+
+                                                                <button @onclick="@(e => SetUserForEdit(user))" type="button" class="btn btn-labeled btn-primary float-end mx-1" data-toggle="modal" data-target="#editUserModal">
+                                                                    <i class="bi bi-gear"></i>
+                                                                </button>
+                                                                @if (user.RoleID != 0)
+                                                                {
+                                                                    <button @onclick="@(e => SetUserForEdit(user))" type="button" class="btn btn-labeled btn-danger float-end" data-toggle="modal" data-target="#removeUserModal">
+                                                                        <i class="bi bi-trash"></i>
+                                                                    </button>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    public List<User> Users { get; set; } = new List<User>();
+
+    public List<Report> Reports { get; set; } = new List<Report>();
+
+    public List<Report> FilteredReports { get; set; } = new List<Report>();
+
+    public User UserForEdit { get; set; } = new User();
+
+    public Report ReportToHandle { get; set; } = new Report();
+
+    public User CurrentUser { get; set; } = new User();
+
+    private bool _isUserForEditBanned;
+    public bool IsUserForEditBanned
+    {
+        get { return _isUserForEditBanned; }
+        set
+        {
+            _isUserForEditBanned = value;
+            ApplyBanState();
+        }
+    }
+
+    private string _reportFilter;
+    public string ReportFilter
+    {
+        get { return _reportFilter; }
+        set
+        {
+            _reportFilter = value;
+            ApplyReportsFilter();
+        }
+    }
+
+    private string _loginQuery = string.Empty;
+    public string LoginQuery 
+    {
+        get { return _loginQuery; }
+        set 
+        {
+            _loginQuery = value;
+
+        }
+    } 
+
+    private async Task QueryConfirm(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter")
+        {
+            if (LoginQuery == string.Empty)
+            {
+                Users = await userService.GetUserByQuery("stringempty");
+            }
+            else
+            {
+                Users = await userService.GetUserByQuery(LoginQuery);
+            }
+        }
+    }
+
+    protected async Task BanUser(bool isCallFromReport)
+    {
+        User user;
+        if (isCallFromReport)
+            user = ReportToHandle.Deck.User;
+
+        else
+            user = UserForEdit;
+        user.RoleID = 2;
+        var result = await userService.UpdateUser(user);
+        Users = await userService.GetAllUsers();
+        await UpdateReport();
+        await RefreshListReports();
+    }
+
+    private void SetUserForEdit(User user)
+    {
+        UserForEdit = user;
+        if (user.RoleID == 2)
+        {
+            IsUserForEditBanned = true;
+        }
+        else
+        {
+            IsUserForEditBanned = false;
+        }
+    }
+
+
+    private void SetReportToHandle(Report report) => ReportToHandle = report;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await authService.GetCurrentUser();
+        Users = await userService.GetAllUsers();
+        Reports = await reportService.GetAllReports();
+        FilteredReports = Reports.Where(x => !x.IsHandled).ToList();
+    }
+
+    private async Task UpdateReport()
+    {
+        ReportToHandle.IsHandled = true;
+        await reportService.UpdateReport(ReportToHandle);
+        await RefreshListReports();
+    }
+
+    private async Task UpdateUser()
+    {
+        await userService.UpdateUser(UserForEdit);
+        Users = await userService.GetAllUsers();
+    }
+
+    private async Task DeleteUser()
+    {
+        var result = await userService.DeleteUser(UserForEdit.ID);
+        Users = await userService.GetAllUsers();
+    }
+
+    private async Task DeleteReport(Report report)
+    {
+        var result = await reportService.DeleteReport(report.ID);
+        await RefreshListReports();
+    }
+
+    private async Task RefreshListReports()
+    {
+        Reports = await reportService.GetAllReports();
+        ApplyReportsFilter();
+    }
+
+    private void ApplyReportsFilter()
+    {
+        if (ReportFilter == "waiting" || ReportFilter == null)
+        {
+            FilteredReports = Reports.Where(x => !x.IsHandled).ToList();
+        }
+        else
+        {
+            FilteredReports = Reports.Where(x => x.IsHandled).ToList();
+        }
+    }
+
+    private void ApplyBanState()
+    {
+        if (IsUserForEditBanned)
+        {
+            UserForEdit.RoleID = 2;
+        }
+        else
+        {
+            if (UserForEdit.RoleID != 0)
+            {
+                UserForEdit.RoleID = 1;
+            }
+        }
+    }
+
+}

@@ -21,7 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 
 
-var conn = builder.Configuration.GetConnectionString("SampleDbConnection");
+var conn = builder.Configuration.GetConnectionString("DbConnection");
 builder.Services.AddDbContext<ApiDbContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(conn));
 
 var app = builder.Build();

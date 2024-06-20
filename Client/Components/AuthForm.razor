@@ -1,4 +1,4 @@
-﻿@inject AuthService loginService
+﻿@inject AuthService authService
 @inject NavigationManager navigationManager
 
 <style>
@@ -17,7 +17,14 @@
 <div class="container h-100 d-flex align-items-center justify-content-center">
     <div class="row">
         <div class="col">
-            <p style="visibility: @(IsInputDataIncorrect ? "visible" : "hidden"); color: red">Некорректные данные для входа</p>
+            @if (IsInputDataIncorrect)
+            {
+                <p style="color: red">Некорректные данные для входа</p>
+            }
+            @if (IsUserBanned)
+            {
+                <p style="color: red">Учетная запись заблокирована</p>
+            }
             <EditForm class="form-outline mb-4" Model="@User" OnInvalidSubmit="@HandleFailedRequest" OnValidSubmit="@HandleValidRequest">
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example1">Логин</label>
@@ -63,10 +70,10 @@
     protected User User = new User();
 
     public bool IsInputDataIncorrect { get; private set; }
+    public bool IsUserBanned { get; private set; }
 
     private async Task ChangeForm()
     {
-
         IsSignUpForm = !IsSignUpForm;
         await IsSignUpFormChanged.InvokeAsync(IsSignUpForm);
     }
@@ -78,15 +85,23 @@
 
     protected async Task HandleValidRequest()
     {
-        User.Email = "post";
-        var result = await loginService.Login(User);
-        if (result)
+        User.RoleID = 1;
+        User.Email = "post@mail";
+        var userRepsonse = await authService.SignIn(User);
+        if (userRepsonse != null)
         {
+            if (userRepsonse.RoleID == 2)
+            {
+                IsInputDataIncorrect = false;
+                IsUserBanned = true;
+                return;
+            }
             navigationManager.NavigateTo("/", true);
         }
         else
         {
             IsInputDataIncorrect = true;
+            IsUserBanned = false;
         }
     }
 }

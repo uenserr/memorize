@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace Memorize.Client.Services.Implementations
 {
-    public class AuthService : ILoginService
+    public class AuthService : IAuthService
     {
         public static User? CurrentUser { get; set; }
         
@@ -26,12 +26,12 @@ namespace Memorize.Client.Services.Implementations
             _httpClient = httpClient;
         }
 
-        public async Task<bool> Login(User user)
+        public async Task<User?> SignIn(User user)
         {
             try
             {
                 var itemJson = new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("api/login", itemJson);
+                var response = await _httpClient.PostAsync("api/auth", itemJson);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseBody = await response.Content.ReadAsStreamAsync();
@@ -40,8 +40,9 @@ namespace Memorize.Client.Services.Implementations
                         PropertyNameCaseInsensitive = true
                     });
                     CurrentUser = userResponse;
+                    return userResponse;
                 }
-                return response.IsSuccessStatusCode;
+                return null;
             }
             catch (Exception ex)
             {
@@ -54,7 +55,6 @@ namespace Memorize.Client.Services.Implementations
         {
             try
             {
-                await SetUserAvatar(user);
                 var itemJson = new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("api/users", itemJson);
                 if (response.IsSuccessStatusCode)
@@ -77,7 +77,7 @@ namespace Memorize.Client.Services.Implementations
 
         public async Task<User?> GetCurrentUser()
         {
-            var response = await _httpClient.GetAsync($"api/login/getCurrentUser");
+            var response = await _httpClient.GetAsync($"api/auth/getCurrentUser");
             var responseBody = await response.Content.ReadAsStreamAsync();
             var user = await JsonSerializer.DeserializeAsync<User>(responseBody, new JsonSerializerOptions
             {
@@ -91,7 +91,7 @@ namespace Memorize.Client.Services.Implementations
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/login/logout");
+                var response = await _httpClient.GetAsync($"api/auth/logout");
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -101,20 +101,6 @@ namespace Memorize.Client.Services.Implementations
             }
         }
 
-        private async Task SetUserAvatar(User user)
-        {
-            var path = $"{_httpClient.BaseAddress}defaultAvatar.jpg";
 
-            user.Image = await _httpClient.GetByteArrayAsync(path);
-
-            //    Image avatar = Image.FromFile(path);
-            //byte[] imageArray;
-            //using (MemoryStream ms = new MemoryStream())
-            //{
-            //    avatar.Save(ms, avatar.RawFormat);
-            //    imageArray = ms.ToArray();
-            //}
-            //user.Image = imageArray;
-        }
     }
 }

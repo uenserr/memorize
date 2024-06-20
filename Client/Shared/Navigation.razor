@@ -1,4 +1,4 @@
-﻿@inject AuthService loginService
+﻿@inject AuthService authService
 @inject LibraryService libraryService;
 
 <style>
@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0 " style="width: 100%;">
             <input @onkeydown="QueryConfirm" @bind-value="@Query"
-                   @bind-value:event="oninput" class="form-control mr-sm-2" style="width:70%; margin-left: 18%;"  placeholder="Поиск" />
+                   @bind-value:event="oninput" class="form-control mr-sm-2" style="width:50%; margin-left: 25%;"  placeholder="Поиск" />
         </form>
         <ul class="navbar-nav mr-auto">
 
@@ -60,6 +60,10 @@
             }
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="/profile">Профиль</a>
+                @if (CurrentUser != null && CurrentUser.RoleID == 0)
+                {
+                    <a class="dropdown-item" href="/adminpanel">Адм. панель</a>
+                }
                 <div class="dropdown-divider"></div>
                 <a @onclick="LogoutClick" class="dropdown-item" href="/">Выход</a>
             </div>
@@ -84,7 +88,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentUser = await loginService.GetCurrentUser();
+        CurrentUser = await authService.GetCurrentUser();
         Decks = await libraryService.GetCurrentUserDecks(CurrentUser);
         CalculateCardsLearnCount();
     }
@@ -118,7 +122,7 @@
 
     public void LogoutClick()
     {
-        loginService.Logout();
+        authService.Logout();
         NavigationManager.NavigateTo("/", true);
     }
 }

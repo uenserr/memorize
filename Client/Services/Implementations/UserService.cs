@@ -1,4 +1,5 @@
 ﻿using Memorize.Shared.Models;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
@@ -13,6 +14,24 @@ namespace Memorize.Client.Services.Implementations
             _httpClient = httpClient;
         }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            try
+            {
+                var response = await _httpClient.GetStreamAsync($"api/users/all");
+                var users = await JsonSerializer.DeserializeAsync<List<User>>(response, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return users;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
         public async Task<User> GetUserByLogin(string login)
         {
             try
@@ -23,6 +42,24 @@ namespace Memorize.Client.Services.Implementations
                     PropertyNameCaseInsensitive = true
                 });
                 return user;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
+        public async Task<List<User>> GetUserByQuery(string query)
+        {
+            try
+            {
+                var response = await _httpClient.GetStreamAsync($"api/users/param/{query}");
+                var users = await JsonSerializer.DeserializeAsync<List<User>>(response, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return users;
             }
             catch (Exception ex)
             {
@@ -47,6 +84,19 @@ namespace Memorize.Client.Services.Implementations
             }
         }
 
-        
+        public async Task<bool> DeleteUser(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/users/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw ex;
+            }
+        }
+
     }
 }

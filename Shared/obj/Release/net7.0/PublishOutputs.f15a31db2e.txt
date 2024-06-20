@@ -1,0 +1,3 @@
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\publish\Memorize.Shared.dll
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\publish\Memorize.Shared.deps.json
+C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\publish\Memorize.Shared.pdb

@@ -3160,7 +3160,6 @@ C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-mas
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\scopedcss\Pages\Index.razor.rz.scp.css
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\scopedcss\bundle\Memorize.Client.styles.css
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\scopedcss\projectbundle\Memorize.Client.bundle.scp.css
 C:\Users\uense\OneDrive\Рабочий стол\memorize-master (1)\memorize-master\Client\obj\Debug\net7.0\compressed\q8elxxoi82.gz

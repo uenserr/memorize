@@ -18,5 +18,6 @@ builder.Services.AddScoped<LibraryService>();
 builder.Services.AddScoped<DeckService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<SearchService>();
+builder.Services.AddScoped<ReportService>();
 
 await builder.Build().RunAsync();

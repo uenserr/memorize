@@ -11,7 +11,11 @@ namespace Memorize.Shared.Models
     {
         [Key]
         public int ID { get; set; } = 0;
+
+        [MaxLength(255)]
         public string FrontSide { get; set; } = string.Empty;
+
+        [MaxLength(1024)]
         public string BackSide { get; set; } = string.Empty;
         public byte[]? Image { get; set; } = null;
         public DateTime? NextAppear { get; set; } = DateTime.Today;

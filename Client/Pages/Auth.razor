@@ -2,7 +2,7 @@
 @inject AuthService authService
 @using Memorize.Client.Pages
 
-<PageTitle>Аутентификация</PageTitle>
+<PageTitle>Авторизация</PageTitle>
 
 @if (!IsSignUpForm)
 {
@@ -26,10 +26,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         var user = await authService.GetCurrentUser();
-        if (user != null)
-        {
-            NavigationManager.NavigateTo($"/{user.Login}/Library");
-        }
 
     }
 

@@ -34,32 +34,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSZWdpc3RlckZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Auth.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aC5yYXpvcg==
+[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/AdminPanel.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Auth.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/DeckDetails.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVja0RldGFpbHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Drag.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRHJhZy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/FetchData.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Library.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGlicmFyeS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Logout.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Pages/Modes/FlashcardsMode.razor]
@@ -94,10 +82,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdmlnYXRpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Shared/SurveyPrompt.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -109,7 +93,3 @@ build_metadata.AdditionalFiles.CssScope = b-vka71e45wd
 [C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-27vfr4lega
-
-[C:/Users/uense/OneDrive/Рабочий стол/memorize-master (1)/memorize-master/Client/Shared/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-06h47tk69a

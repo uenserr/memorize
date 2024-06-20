@@ -128,6 +128,51 @@ namespace Memorize.Server.Migrations
                     b.ToTable("Folders");
                 });
 
+            modelBuilder.Entity("Memorize.Shared.Models.Report", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DeckID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsHandled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DeckID");
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("Memorize.Shared.Models.Role", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Memorize.Shared.Models.User", b =>
                 {
                     b.Property<int>("ID")
@@ -154,7 +199,12 @@ namespace Memorize.Server.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("RoleID");
 
                     b.ToTable("Users");
                 });
@@ -198,14 +248,43 @@ namespace Memorize.Server.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Memorize.Shared.Models.Report", b =>
+                {
+                    b.HasOne("Memorize.Shared.Models.Deck", "Deck")
+                        .WithMany("Reports")
+                        .HasForeignKey("DeckID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Deck");
+                });
+
+            modelBuilder.Entity("Memorize.Shared.Models.User", b =>
+                {
+                    b.HasOne("Memorize.Shared.Models.Role", "Roles")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
+                });
+
             modelBuilder.Entity("Memorize.Shared.Models.Deck", b =>
                 {
                     b.Navigation("Cards");
+
+                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("Memorize.Shared.Models.Folder", b =>
                 {
                     b.Navigation("Decks");
+                });
+
+            modelBuilder.Entity("Memorize.Shared.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Memorize.Shared.Models.User", b =>

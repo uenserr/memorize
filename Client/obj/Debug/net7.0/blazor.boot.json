@@ -1,7 +1,7 @@
 {
   "entryAssembly": "Memorize.Client",
   "resources": {
-    "hash": "sha256-AXM7vB12CTiVRPPJcMaX+cV5rp7un5gclfluPtIRbpo=",
+    "hash": "sha256-6RjdHgNvSYqUAejUn1xvhtnVZ7MG3PCBR3LzeZwnBAs=",
     "runtime": {
       "dotnet.7.0.15.h3e7chu34f.js": "sha256-MHuxwxeVFybuBBTAWeZrvoStZpW+H4ThSaRcFvrfqXM=",
       "dotnet.timezones.blat": "sha256-aHk3Pm2JXopn6UPLJtovAqIdIk8GyIMzGm450cli9UE=",
@@ -206,12 +206,12 @@
       "mscorlib.dll": "sha256-fVDx40u1vKqhdy509hDF73SIx6C5q5Mst93LwfZWVQY=",
       "netstandard.dll": "sha256-ohOFXxRJKiyPbitdA1y5ebD9fSAGELDRVmhDM2nVdtA=",
       "System.Private.CoreLib.dll": "sha256-7Y6AhJbgMptcdman3NtSEbcJV520wGmyxB8QvZwrUmc=",
-      "Memorize.Shared.dll": "sha256-GTcuXxPucp/DsCodY1a42XFqJ8QJ+yfsGDRlFaz1UKM=",
-      "Memorize.Client.dll": "sha256-ljz4d2M8acG1jebeg7ifQytyNBmp8SfLhjd9YxrA+C0="
+      "Memorize.Shared.dll": "sha256-z7xyBvO+wU5TKHwPkooISDN5HEi1EAMjVLEK+MtVN1c=",
+      "Memorize.Client.dll": "sha256-g1DISt3BCL8o6UiADU8Vs3uAk49gsAa/5aQzniRNzaA="
     },
     "pdb": {
-      "Memorize.Shared.pdb": "sha256-hRHZYABqmuzswQjQj/S0Oob9rVaAUAbc7sT4tHP7SpI=",
-      "Memorize.Client.pdb": "sha256-3VYOK+dC8JMmsqvBO7lKkIAX4/TXUgp3JMJRyxcqK5Y="
+      "Memorize.Shared.pdb": "sha256-O4j8UPqJQRSwkUI02xk4WS7vuzSonVUt8hI5sFv7aNI=",
+      "Memorize.Client.pdb": "sha256-ZKXh6spTaic34gCU5ZIAsFV394nWgOCGO2DXhtwQ9X0="
     },
     "runtimeAssets": {
       "dotnet.wasm": {

@@ -4,7 +4,7 @@
 
 @using Memorize.Client.Pages
 
-<PageTitle>Library2</PageTitle>
+<PageTitle>Библиотека</PageTitle>
 
 
 <style>
@@ -37,31 +37,31 @@
 
 </style>
 
+<div class="modal fade" id="removeDeckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить колоду "@DeckForModalInteraction.Name"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button @onclick="@(e => DeleteDeck())" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-4">
     <h1>Ваша библиотека колод</h1>
 
     @foreach (var folder in Folders)
     {
         <div class="card mb-2">
-            <div class="card-header collapsed card-link py-4">
-
-                <div class="modal fade" id="removeDeckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Удаление</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Вы уверены, что хотите удалить колоду "@DeckForModalInteraction.Name"?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                                <button @onclick="@(e => DeleteDeck())" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-header collapsed card-link py-4">       
 
                 <div class="modal fade" id="removeFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -155,13 +155,14 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-11" @onclick="@(e => RedirectToDeck(deck.ID))">
-                                                <h5 class="card-title">@deck.Name</h5>
-                                                <p class="card-text">@deck.Description</p>
+                                                <p class="card-title" style="font-size: 20px"><b>Название:</b> @deck.Name</p>
+                                                <p class="card-text"><b>Описание:</b> @deck.Description</p>
                                             </div>
                                             <div class="col-1 p-0">
                                                 <button type="button" @onclick="@(e => SetDeckForEdit(deck))" class="btn btn-labeled btn-danger float-end" data-toggle="modal" data-target="#removeDeckModal">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
+                                                <p style="position: absolute; bottom: 0px; right: 18px;">Карты: @deck.Cards.Count</p>
                                             </div>
                                         </div>
                                     </div>
@@ -194,13 +195,14 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-11" @onclick="@(e => RedirectToDeck(deck.ID))">
-                                            <h5 class="card-title">@deck.Name</h5>
-                                            <p class="card-text">@deck.Description</p>
+                                    <p class="card-title" style="font-size: 20px"><b>Название:</b> @deck.Name</p>
+                                            <p class="card-text"><b>Описание:</b> @deck.Description</p>
                                         </div>
                                         <div class="col-1 p-0">
                                             <button type="button" @onclick="@(e => SetDeckForEdit(deck))" class="btn btn-labeled btn-danger float-end" data-toggle="modal" data-target="#removeDeckModal">
                                                 <i class="bi bi-trash"></i>
                                             </button>
+                                            <p style="position: absolute; bottom: 0px; right: 18px;">Карты: @deck.Cards.Count</p>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +222,7 @@
         <div class="row mt-4 justify-content-center">
 
             <div class="w-50 d-flex flex-row">
-            <button class="btn btn-warning float-end mx-1 my-0" @onclick="AddFolder" style="height:38px" data-toggle="modal" data-target="#editFolderModal">
+            <button class="btn btn-warning float-end mx-1 my-0" @onclick="AddFolder" style="height:38px">
                     <i class="bi bi-folder-plus"></i>
                 </button>
                 <button type="button" @onclick="AddDeck" class="btn btn-primary w-100">Добавить</button>
@@ -358,7 +360,6 @@
     protected async Task AddFolder()
     {
         var folder = new Folder { UserID = CurrentUser.ID };
-        SetFolderForEdit(folder);
         await libraryService.AddFolder(folder);
         await GetUserLibrary();
     }
