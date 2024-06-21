@@ -30,13 +30,13 @@ namespace Server.Controllers
         }
         */
 
-        [HttpGet]
-        public async Task<ActionResult<List<Deck>>> GetDecks()
-        {
-            var decks = await _context.Decks.ToListAsync();
-            return Ok(decks);
+        //[HttpGet]
+        //public async Task<ActionResult<List<Deck>>> GetDecks()
+        //{
+        //    var decks = await _context.Decks.ToListAsync();
+        //    return Ok(decks);
             
-        }
+        //}
         
         [HttpGet("deck/{id}")]
         public async Task<ActionResult<List<Deck>>> GetDeckDetails(int id)
